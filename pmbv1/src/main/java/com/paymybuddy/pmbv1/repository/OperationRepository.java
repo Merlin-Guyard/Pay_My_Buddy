@@ -1,4 +1,11 @@
 package com.paymybuddy.pmbv1.repository;
 
-public class OperationRepository {
+import com.paymybuddy.pmbv1.model.Operation;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface OperationRepository extends CrudRepository<Operation, Integer> {
+
 }
+

@@ -1,7 +1,7 @@
 package com.paymybuddy.pmbv1.controller;
 
-import com.mg.paymybuddy.model.User;
-import com.mg.paymybuddy.service.UserService;
+import com.paymybuddy.pmbv1.model.User;
+import com.paymybuddy.pmbv1.service.UserService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

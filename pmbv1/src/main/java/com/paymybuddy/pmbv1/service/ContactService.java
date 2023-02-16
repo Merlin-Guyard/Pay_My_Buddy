@@ -1,9 +1,8 @@
 package com.paymybuddy.pmbv1.service;
 
-import com.mg.paymybuddy.model.Contact;
-import com.mg.paymybuddy.model.User;
-import com.mg.paymybuddy.repository.ContactRepository;
-import com.mg.paymybuddy.repository.UserRepository;
+
+import com.paymybuddy.pmbv1.model.User;
+import com.paymybuddy.pmbv1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -14,33 +13,67 @@ import java.util.Optional;
 @Service
 public class ContactService {
 
-        @Autowired
-        private ContactRepository contactRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-        @Autowired
-        private UserRepository userRepository;
+    @Autowired
+    private MessageService messageService;
 
-        public String addContact(String email2Add){
+    public String addContact(String email) {
 
+        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(oUser.isEmpty()) {
+            return messageService.returnMessage("err.unknown_user");
+        }
+        User user = oUser.get();
 
-            String messageResult = "";
+        Optional<User> oContact = userRepository.findByEmail(email);
+        if(oContact.isEmpty()) {
+            return messageService.returnMessage("err.unknown_contact");
+        }
+        User contact = oContact.get();
 
-            Optional<User> user = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            Optional<User> contact2Add = userRepository.findByEmail(email2Add);
-            Optional<List<Contact>> contactList = contactRepository.findById(user.get().getUserId());
-
-            for (Contact contact : contactList.get()) {
-                if (contact.getContactId() == contact2Add.get().getUserId()) {
-                    messageResult = "Contact déjà enregistré";
-                }
-            }
-            if (messageResult.isEmpty()) {
-                Contact contact2save = new Contact(user.get().getUserId(), contact2Add.get().getUserId());
-                contactRepository.save(contact2save);
-                messageResult = "Contact enregistré";
-            }
-
-            return messageResult;
+        if (user.getUserId() == contact.getUserId()) {
+            return messageService.returnMessage("err.contact_is_user");
         }
 
+        boolean isAlreadyFriend = user.getFriendList().stream().anyMatch(friend -> friend.getEmail().equals(contact.getEmail()));
+        if (isAlreadyFriend) {
+            return messageService.returnMessage("err.duplicate_contact");
+        }
+
+        List<User> userContactList = user.getFriendList();
+        userContactList.add(contact);
+        user.setFriendList(userContactList);
+        userRepository.save(user);
+
+        return messageService.returnMessage("stat.add_contact");
+    }
+
+    public String removeContact(String email) {
+
+        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(oUser.isEmpty()) {
+            return messageService.returnMessage("err.unknown_user");
+        }
+        User user = oUser.get();
+
+        Optional<User> oContact = userRepository.findByEmail(email);
+        if(oContact.isEmpty()) {
+            return messageService.returnMessage("err.unknown_contact");
+        }
+        User contact = oContact.get();
+
+        boolean isAlreadyFriend = user.getFriendList().stream().anyMatch(friend -> friend.getEmail().equals(contact.getEmail()));
+        if (!isAlreadyFriend) {
+            return messageService.returnMessage("err.not_friend_contact");
+        }
+
+        List<User> userContactList = user.getFriendList();
+        userContactList.remove(contact);
+        user.setFriendList(userContactList);
+        userRepository.save(user);
+
+        return messageService.returnMessage("stat.del_contact");
+    }
 }

@@ -47,15 +47,13 @@ public class User {
     private int enabled;
 
     @ManyToMany(
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
             fetch = FetchType.LAZY
     )
     @JoinTable(name = "contact",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "contact_id")
     )
-    private List<User> user = new ArrayList<>();
+    private List<User> friendList = new ArrayList<>();
 
     public User() {
     }
@@ -176,5 +174,13 @@ public class User {
 
     public void setEnabled(int enabled) {
         this.enabled = enabled;
+    }
+
+    public List<User> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<User> friendList) {
+        this.friendList = friendList;
     }
 }

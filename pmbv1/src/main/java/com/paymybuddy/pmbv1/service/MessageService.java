@@ -1,14 +1,18 @@
-package com.paymybuddy.pmbv1;
+package com.paymybuddy.pmbv1.service;
 
 import com.paymybuddy.pmbv1.configuration.MessageConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Service;
 
 import java.util.Locale;
 
-public class testmain {
+@Service
+public class MessageService {
 
-    public static void main(String[] args) {
+    public String returnMessage(String status) {
+
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MessageConfig.class);
-        System.out.println(ctx.getMessage("err.duplicate_contact", null, "Default", new Locale("eng")));
+
+        return ctx.getMessage(status, null, "Default", new Locale("eng"));
     }
 }
