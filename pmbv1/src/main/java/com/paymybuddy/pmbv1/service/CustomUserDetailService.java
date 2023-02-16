@@ -1,10 +1,8 @@
-package com.mg.paymybuddy.service;
+package com.paymybuddy.pmbv1.service;
 
 import com.mg.paymybuddy.model.User;
 import com.mg.paymybuddy.repository.UserRepository;
-import net.bytebuddy.build.Plugin;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

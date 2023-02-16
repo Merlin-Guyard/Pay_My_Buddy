@@ -1,4 +1,4 @@
-package com.mg.paymybuddy.model;
+package com.paymybuddy.pmbv1.model;
 
 public class TestModel {
     String name;

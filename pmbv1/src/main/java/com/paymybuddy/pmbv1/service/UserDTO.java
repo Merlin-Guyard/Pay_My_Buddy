@@ -1,9 +1,4 @@
-package com.mg.paymybuddy.service;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+package com.paymybuddy.pmbv1.service;
 
 public class UserDTO {
     private int userId;

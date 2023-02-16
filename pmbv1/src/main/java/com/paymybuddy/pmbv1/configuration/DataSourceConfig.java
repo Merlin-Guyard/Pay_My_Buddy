@@ -1,4 +1,4 @@
-package com.mg.paymybuddy.configuration;
+package com.paymybuddy.pmbv1.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;

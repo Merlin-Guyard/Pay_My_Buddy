@@ -1,4 +1,4 @@
-package com.paymybuddy.pmbv1.configuration.controller;
+package com.paymybuddy.pmbv1.controller;
 
 import com.mg.paymybuddy.service.ContactService;
 import com.sun.istack.NotNull;

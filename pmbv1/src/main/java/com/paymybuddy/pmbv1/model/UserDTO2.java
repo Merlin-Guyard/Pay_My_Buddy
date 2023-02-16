@@ -1,6 +1,4 @@
-package com.mg.paymybuddy.model;
-
-import javax.persistence.Column;
+package com.paymybuddy.pmbv1.model;
 
 public class UserDTO2 {
     private String name;

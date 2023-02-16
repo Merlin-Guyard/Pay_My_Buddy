@@ -1,6 +1,6 @@
-package com.mg.paymybuddy.repository;
+package com.paymybuddy.pmbv1.repository;
 
-import com.mg.paymybuddy.model.Contact;
+import com.paymybuddy.pmbv1.model.Contact;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.transaction.Transactional;
 
 @SpringBootApplication
-public class Pmbv1Application implements CommandLineRunner {
+public class Pmbv1Application {
 
 	@Autowired
 	UserService userService;
@@ -17,13 +17,6 @@ public class Pmbv1Application implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(Pmbv1Application.class, args);
 	}
-
-	@Override
-	@Transactional
-	public void run(String... args) throws Exception {
-
-		userService.getUsers().forEach(
-				user -> System.out.println(user.getFirstName()));
 	}
 
-}
+

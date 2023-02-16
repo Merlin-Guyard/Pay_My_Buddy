@@ -1,6 +1,9 @@
-package com.mg.paymybuddy.model;
+package com.paymybuddy.pmbv1.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity

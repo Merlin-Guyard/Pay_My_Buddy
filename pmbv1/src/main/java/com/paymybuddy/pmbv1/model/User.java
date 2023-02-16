@@ -1,4 +1,4 @@
-package com.mg.paymybuddy.model;
+package com.paymybuddy.pmbv1.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

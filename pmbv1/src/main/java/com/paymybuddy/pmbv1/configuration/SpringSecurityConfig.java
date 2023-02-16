@@ -1,4 +1,4 @@
-package com.mg.paymybuddy.configuration;
+package com.paymybuddy.pmbv1.configuration;
 
 import com.mg.paymybuddy.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
