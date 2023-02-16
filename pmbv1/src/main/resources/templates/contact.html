@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Pay My Buddy</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <img src="images/logo.png" alt="Logo PMB">
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="home" class="nav-link text-dark" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="operation" class="nav-link text-dark">Operation</a></li>
+            <li class="nav-item"><a href="profile" class="nav-link text-dark">Profile</a></li>
+            <li class="nav-item"><a href="contact" class="nav-link text-primary">Contact</a></li>
+            <li class="nav-item"><a href="login" class="nav-link text-dark">Log off</a></li>
+        </ul>
+    </header>
+</div>
+
+<header class="mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="home.html" class="nav-link px-2 text-primary">Home</a></li>
+                <li><a href="#" class="nav-link px-2 link-secondary">/</a></li>
+                <li><a href="#" class="nav-link px-2 link-secondary">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<form th:action="@{/contact}" method="post"
+      action="#"
+      class="form">
+
+    <a>Enter email address</a>
+    <div class="d-flex justify-content-center">
+        <input type="email"
+               name="emailAdd"
+               class="form-control"
+               id="emailAdd"
+               placeholder="Email">
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit"
+                class="btn btn-primary"
+                id="BCreate">
+            Add user
+        </button>
+    </div>
+</form>
+
+<!--<form th:action="@{/addContact}" method="post"-->
+<!--      action="#"-->
+<!--      class="form">-->
+
+<!--    <a>Enter email address of the contact you wish to add</a>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <input type="email"-->
+<!--               name="email"-->
+<!--               class="form-control"-->
+<!--               id="emailAdd"-->
+<!--               placeholder="Email">-->
+<!--    </div>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <button type="submit"-->
+<!--                class="btn btn-primary"-->
+<!--                id="BAdd">-->
+<!--            Add user-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</form>-->
+
+<form th:action="@{/contact/del}" method="get"
+      action="#"
+      class="form">
+
+    <a>Enter email address of teh contact you wish to remove</a>
+    <div class="d-flex justify-content-center">
+        <input type="email"
+               name="emailDel"
+               class="form-control"
+               id="emailDel"
+               placeholder="Email">
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit"
+                class="btn btn-primary"
+                id="BDel">
+            Delete user
+        </button>
+    </div>
+</form>
+
+</body>

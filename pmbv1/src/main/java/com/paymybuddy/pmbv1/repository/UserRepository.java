@@ -1,6 +1,7 @@
 package com.paymybuddy.pmbv1.repository;
 
-import com.mg.paymybuddy.model.User;
+
+import com.paymybuddy.pmbv1.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.paymybuddy.pmbv1.controller;
 
-import com.mg.paymybuddy.service.ContactService;
+import com.paymybuddy.pmbv1.service.ContactService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +16,24 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-        @GetMapping
-        public String getContact() {
+    @GetMapping
+    public String getContact() {
             return "contact";
         }
 
     @PostMapping
     public void addUser(Model model,
-                        @NotNull String email) {
+                        @NotNull String emailAdd) {
 
-        contactService.addContact(email);
+        System.out.println(contactService.addContact(emailAdd));
+    }
+
+    @GetMapping(value = "/del")
+    public String removeUser(Model model,
+                        @NotNull String emailDel) {
+
+        System.out.println(contactService.removeContact(emailDel));
+        return "home";
     }
 
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Pay My Buddy</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="container">
+        <div class="row ">
+            <div class="row">
+                <div class="col-md-4 offset-md-4 border_grey">
+                    <img src="images/logo.png" class="rounded mx-auto d-block" alt="Logo PMB">
+
+                    <form th:action="@{/login}" method="post"
+                          class="form">
+
+                        <a>Enter email address</a>
+                        <div class="d-flex justify-content-center">
+                            <input type="email"
+                                   name="username"
+                                   class="form-control"
+                                   id="username"
+                                   placeholder="Email">
+                        </div>
+
+                        <a>Enter password</a>
+                        <div class="test d-flex justify-content-center">
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Password">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit"
+                                    class="btn btn-primary"
+                                    id="BLogin">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+
+
+                    <div class="row">
+                        <p class="text-light">-</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="register" class="btn btn-primary">Create account</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="jquery/jquery-3.6.0.js"></script>-->
+<!--<script>-->
+<!--&lt;!&ndash;    $(document).ready(function () {&ndash;&gt;-->
+
+<!--&lt;!&ndash;    $("#BLogin").click(function () {&ndash;&gt;-->
+
+<!--&lt;!&ndash;        var E = $("#email").val();&ndash;&gt;-->
+<!--&lt;!&ndash;        var P = $("#password").val();&ndash;&gt;-->
+
+<!--&lt;!&ndash;        if (E == "" || P == "") {&ndash;&gt;-->
+<!--&lt;!&ndash;            alert("You need to fill all fields");&ndash;&gt;-->
+<!--&lt;!&ndash;        } else {&ndash;&gt;-->
+<!--&lt;!&ndash;            axios.post('/user2', {&ndash;&gt;-->
+<!--&lt;!&ndash;                email: E,&ndash;&gt;-->
+<!--&lt;!&ndash;                password: P&ndash;&gt;-->
+<!--&lt;!&ndash;            })&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    });&ndash;&gt;-->
+
+<!--&lt;!&ndash;});&ndash;&gt;-->
+<!--</script>-->
+</body>
+</html>
