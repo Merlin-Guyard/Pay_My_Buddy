@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
 
 @Service
@@ -44,12 +46,16 @@ public class OperationService {
             return messageService.returnMessage("err.operation");
         }
 
-        if (user.getBalance()-amount<0) {
+        BigDecimal bd = new BigDecimal(amount*0.05).setScale(2, RoundingMode.HALF_DOWN);
+        double commission = bd.doubleValue();
+
+        if (user.getBalance()-amount-commission<0) {
             return messageService.returnMessage("err.insufficient_funds");
         }
 
-        user.setBalance(user.getBalance()-amount);
+        user.setBalance(user.getBalance()-amount-commission);
         contact.setBalance(contact.getBalance()+amount);
+        System.out.println("The commission for this transaction was :"+commission);
         userRepository.save(user);
         userRepository.save(contact);
 
