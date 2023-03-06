@@ -43,22 +43,11 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-2"><img class="rounded-circle mt-5"
                                                                                          width="150px"
                                                                                          src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold">Edogaru</span><span
-                    class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+                    class="font-weight-bold">Merlin</span><span
+                    class="text-black-50">merlin@mail.com.my</span><span> </span></div>
         </div>
-        <div sec:authorize="isAuthenticated()">
-            Text visible only to authenticated users.
-        </div>
-        <div sec:authorize="!isAuthenticated()">
-            Text visible only to unauthenticated users.
-        </div>
-        Authenticated username:
-        <div sec:authentication="name"></div>
-
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-
+<!--        Authenticated username:-->
+<!--        <div sec:authentication="name"></div>-->
 
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -83,54 +72,12 @@
         <div class="col-md-4">
             <div class="p-3 py-5">
                 <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Address Line</label><input type="text"
-                                                                                            class="form-control"
-                                                                                            placeholder="address line"
-                                                                                            value=""></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control"
-                                                                                      placeholder="country" value="">
-                    </div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
-                                                                                           class="form-control" value=""
-                                                                                           placeholder="state"></div>
+                    <div class="col-md-12"><label class="labels">Your balance : </label><a>[BALANCE]</a></div>
                 </div>
             </div>
         </div>
     </div>
-    <h1>Test</h1>
-    <label id="test"></label>
 
-</div>
-
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-
-    $(document).ready(function() {
-
-    axios.get('/user/')
-.then(resp => {
-console.log(resp.data);
-    $("#test").text(resp.data.firstName);
-})
-
-$( "#target" ).click(function() {
-  axios.put('/user/id', {
-firstName: 'Emilie',
-lastName: 'Bidochon'
-})
-.then(resp => {
-console.log(resp.data);
-})
-});
-
-    });
-
-
-
-</script>
 </div>
 </body>
 
