@@ -26,7 +26,7 @@ public class User {
     private String password;
 
     @Column(name="balance")
-    private int balance;
+    private double balance;
 
     @Column(name="card_code")
     private int card_code;
@@ -120,11 +120,11 @@ public class User {
         this.password = password;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
