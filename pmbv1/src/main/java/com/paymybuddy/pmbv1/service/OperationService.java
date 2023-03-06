@@ -42,15 +42,19 @@ public class OperationService {
             return messageService.returnMessage("err.not_friend_contact");
         }
 
-        if (user.getBalance()<0) {
+        if (amount<0.00) {
             return messageService.returnMessage("err.operation");
         }
 
         BigDecimal bd = new BigDecimal(amount*0.05).setScale(2, RoundingMode.HALF_DOWN);
         double commission = bd.doubleValue();
 
-        if (user.getBalance()-amount-commission<0) {
+        if (user.getBalance()-amount-commission<0.00) {
             return messageService.returnMessage("err.insufficient_funds");
+        }
+
+        if (user.getBalance()-amount<1.00) {
+            return messageService.returnMessage("err.minimum");
         }
 
         user.setBalance(user.getBalance()-amount-commission);
