@@ -46,8 +46,8 @@
                     class="font-weight-bold">Merlin</span><span
                     class="text-black-50">merlin@mail.com.my</span><span> </span></div>
         </div>
-<!--        Authenticated username:-->
-<!--        <div sec:authentication="name"></div>-->
+        <!--        Authenticated username:-->
+        <!--        <div sec:authentication="name"></div>-->
 
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
@@ -79,5 +79,13 @@
     </div>
 
 </div>
+
+<tr th:each="user : ${users}">
+    <td th:text="${user.id}">1</td>
+    <td><a href="#" th:text="${user.first_name}">Title ...</a></td>
+    <td th:text="${user.mail}">Text ...</td>
+</tr>
+
+
 </body>
 
