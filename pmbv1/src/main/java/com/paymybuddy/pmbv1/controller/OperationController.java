@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/operation")
@@ -39,7 +40,12 @@ public class OperationController {
 
     @RequestMapping(value = "user", method = RequestMethod.GET)
     public String users(Model model) {
-        model.addAttribute("messages", userRepository.findAll());
+        List<User> toto = userRepository.findAll();
+        model.addAttribute("users", toto );
+//        String
+//        if (hasError) {
+//            model.addAttribute("errorAmount", message)
+//        }
         return "user/list";
     }
 
