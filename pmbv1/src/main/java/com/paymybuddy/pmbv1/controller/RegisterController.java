@@ -30,7 +30,6 @@ public class RegisterController {
                           @NotNull String email,
                           @NotNull String password) {
 
-        //TODO: dans le service
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
         //save user
