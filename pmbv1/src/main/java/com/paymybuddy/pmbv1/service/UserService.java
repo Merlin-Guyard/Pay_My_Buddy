@@ -39,8 +39,12 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        userRepository.deleteById(user.getUserId());
-        return userRepository.save(user);
+        User user2Update = userRepository.getById(user.getUserId());
+        user2Update.setFirstName(user.getFirstName());
+        user2Update.setLastName(user.getLastName());
+        user2Update.setEmail(user.getEmail());
+        userRepository.deleteById(user2Update.getUserId());
+        return userRepository.save(user2Update);
     }
 
     public void delUser(Integer id) {

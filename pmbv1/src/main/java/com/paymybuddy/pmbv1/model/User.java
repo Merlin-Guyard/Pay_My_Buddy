@@ -89,6 +89,9 @@ public class User {
         this.enabled = enabled;
     }
 
+    public User(String firstName, String lastName, String email) {
+    }
+
     public int getUserId() {
         return userId;
     }
