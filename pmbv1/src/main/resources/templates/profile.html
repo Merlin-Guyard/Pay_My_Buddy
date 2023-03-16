@@ -86,22 +86,24 @@
 <!--    <td th:text="${user.mail}">Text ...</td>-->
 <!--</tr>-->
 
-<table>
-    <thead>
-    <tr>
-        <th>User ID</th>
-        <th>User first name</th>
-        <th>User email</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr th:each="user : ${users}">
-            <td th:text="${user.userId}"></td>
-            <td th:text="${user.firstName}"></td>
-            <td th:text="${user.email}"></td>
-        </tr>
-    </tbody>
-</table>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>User ID</th>-->
+<!--        <th>User first name</th>-->
+<!--        <th>User email</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--        <tr th:each="user : ${users}">-->
+<!--            <td th:text="${user.userId}"></td>-->
+<!--            <td th:text="${user.firstName}"></td>-->
+<!--            <td th:text="${user.email}"></td>-->
+<!--        </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<span th:text="${user.email}"></span>
 
 </body>
 
