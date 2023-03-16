@@ -80,15 +80,26 @@
     </div>
 </div>
 
-
+<tr th:each="user : ${users}">
+    <td th:text="${user.firstName}"></td>
+    <td th:text="${user.email}"></td>
+    <td><a>X</a></td>
+</tr>
 
 <div class="container bg-light">
     <div class="row">
         <div class="col-lg-4">
-            <select name="connection" id="connections">
-                <option value="contact 1">contact 1</option>
-                <option value="contact 2">contact 2</option>
-                <option value="contact 3">contact 3</option>
+<!--            <select name="connection" id="connections">-->
+<!--                <option th:each="user : ${users}"-->
+<!--                        th:text="${user.firstName}"-->
+<!--                        th:text="${user.lastName}">-->
+<!--                </option>-->
+<!--            </select>-->
+            <select>
+                <option value=""> Select A Connection </option>
+                <option th:each="user : ${users}"
+                        th:value="${user.userId}"
+                        th:utext="${user.firstName} + ' ' + ${user.lastName}"/>
             </select>
         </div>
         <div class="col-lg-4">
