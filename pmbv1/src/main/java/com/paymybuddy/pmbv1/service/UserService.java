@@ -28,6 +28,12 @@ public class UserService {
         return userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
+    public Iterable<User> getContacts(){
+        List<User> contacts = new ArrayList<>();
+        userRepository.findAll();
+        return contacts;
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }

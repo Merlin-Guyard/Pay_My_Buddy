@@ -117,60 +117,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>stevie@wonder.com</a>
-                            </td>
-                            <td>
-                                <a>X</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>stevie@wonder.com</a>
-                            </td>
-                            <td>
-                                <a>X</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>stevie@wonder.com</a>
-                            </td>
-                            <td>
-                                <a>X</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>stevie@wonder.com</a>
-                            </td>
-                            <td>
-                                <a>X</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>stevie@wonder.com</a>
-                            </td>
-                            <td>
-                                <a>X</a>
-                            </td>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.firstName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td><a>X</a></td>
                         </tr>
                         </tbody>
                     </table>
