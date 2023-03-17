@@ -26,6 +26,6 @@ public class AddContactController {
                           @NotNull String emailAdd) {
 
         System.out.println(contactService.addContact(emailAdd));
-        return "contact";
+        return "redirect:/contact";
     }
 }

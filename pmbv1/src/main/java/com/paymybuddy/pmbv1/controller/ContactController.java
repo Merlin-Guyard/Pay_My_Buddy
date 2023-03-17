@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/contact")
 public class ContactController {
 
     @Autowired
@@ -25,7 +24,7 @@ public class ContactController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/contact")
     public String getContact(Model model) {
         Optional<User> oUser = userService.getUserByEmail();
         User user = oUser.get();
@@ -43,7 +42,7 @@ public class ContactController {
 //        System.out.println(contactService.addContact(emailAdd));
 //    }
 
-    @RequestMapping(value = "/del")
+    @RequestMapping(value = "/contact/del")
     public String removeUser(Model model,
                              @NotNull String emailDel) {
 

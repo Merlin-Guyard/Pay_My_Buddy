@@ -4,6 +4,7 @@ import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.service.UserService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +27,7 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String getUser(Model model,
+    public String getUser(@Valid Model model,
                           @NotNull String firstName,
                           @NotNull String lastName,
                           @NotNull String email,

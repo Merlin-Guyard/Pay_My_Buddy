@@ -88,7 +88,7 @@
     <div class="row">
 
         <form class="form" method="post"
-              th:action="@{/transfer}">
+              th:action="@{/operation/transfer}">
 
             <div class="col-lg-4">
                 <select id="email"
@@ -98,7 +98,7 @@
                     //TODO: fix missing input
                     <option th:each="user : ${users}"
                             th:utext="${user.firstName} + ' ' + ${user.lastName}"
-                            th:value="${user.userId}"
+                            th:value="${user.email}"
                             >
                     </option>
                 </select>
