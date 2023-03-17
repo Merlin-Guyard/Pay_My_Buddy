@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +39,12 @@ public class ContactController {
         return "contact";
     }
 
-    @PostMapping
-    public void addUser(Model model,
-                        @NotNull String emailAdd) {
-
-        System.out.println(contactService.addContact(emailAdd));
-    }
+//    @PostMapping
+//    public void addUser(Model model,
+//                        @NotNull String emailAdd) {
+//
+//        System.out.println(contactService.addContact(emailAdd));
+//    }
 
     @GetMapping(value = "/del")
     public String removeUser(Model model,
@@ -51,6 +52,13 @@ public class ContactController {
 
         System.out.println(contactService.removeContact(emailDel));
         return "home";
+    }
+
+    @RequestMapping(value="/add", method= RequestMethod.POST)
+    public void addUser(Model model,
+                        @NotNull String emailAdd) {
+
+        System.out.println(contactService.addContact(emailAdd));
     }
 
 }

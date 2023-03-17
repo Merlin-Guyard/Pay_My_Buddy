@@ -2,6 +2,7 @@ package com.paymybuddy.pmbv1.controller;
 
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
+import com.paymybuddy.pmbv1.service.ContactService;
 import com.paymybuddy.pmbv1.service.OperationService;
 import com.paymybuddy.pmbv1.service.UserService;
 import com.sun.istack.NotNull;
@@ -25,7 +26,7 @@ public class OperationController {
     OperationService operationService;
 
     @Autowired
-    UserRepository userRepository;
+    ContactService contactService;
 
     @Autowired
     UserService userService;
@@ -48,16 +49,18 @@ public class OperationController {
         System.out.println(operationService.send(email, amount));
     }
 
-    @RequestMapping(value = "user", method = RequestMethod.GET)
-    public String users(Model model) {
-        List<User> toto = userRepository.findAll();
-        model.addAttribute("users", toto );
-//        String
-//        if (hasError) {
-//            model.addAttribute("errorAmount", message)
-//        }
-        return "user/list";
-    }
+
+
+//    @RequestMapping(value = "user", method = RequestMethod.GET)
+//    public String users(Model model) {
+//        List<User> toto = userRepository.findAll();
+//        model.addAttribute("users", toto );
+////        String
+////        if (hasError) {
+////            model.addAttribute("errorAmount", message)
+////        }
+//        return "user/list";
+//    }
 
 
 
