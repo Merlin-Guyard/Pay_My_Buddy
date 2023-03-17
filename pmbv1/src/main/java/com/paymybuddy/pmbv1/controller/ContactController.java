@@ -9,10 +9,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +43,20 @@ public class ContactController {
 //        System.out.println(contactService.addContact(emailAdd));
 //    }
 
-    @GetMapping(value = "/del")
+    @RequestMapping(value = "/del")
     public String removeUser(Model model,
                              @NotNull String emailDel) {
 
         System.out.println(contactService.removeContact(emailDel));
         return "home";
     }
+
+//    @GetMapping(value = "/del")
+//    public String removeUser(@RequestParam String userEmail) {
+//
+//        System.out.println(contactService.removeContact(userEmail));
+//        return "home";
+//    }
+
 
 }

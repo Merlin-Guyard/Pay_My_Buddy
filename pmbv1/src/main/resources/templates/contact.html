@@ -120,7 +120,14 @@
                         <tr th:each="user : ${users}">
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.email}"></td>
-                            <td><a>X</a></td>
+                            <td>
+                                <form th:action="@{/del}" method="post" class="form">
+                                    <input type="hidden" name="email" th:value="${user.email}">
+                                    <button type="submit">Delete</button>
+                                </form>
+
+<!--                                <a th:href="@{/del(userEmail=${user.email})}" class="btn btn-danger">Delete</a>-->
+                            </td>
                         </tr>
                         </tbody>
                     </table>
