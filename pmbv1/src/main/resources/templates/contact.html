@@ -56,6 +56,7 @@
                             <td th:text="${user.firstName}"></td>
                             <td th:text="${user.email}"></td>
                             <td>
+                                //TODO: fix button redirect
                                 <form th:action="@{/del}" method="post" class="form">
                                     <input type="hidden" name="email" th:value="${user.email}">
                                     <button type="submit">Delete</button>

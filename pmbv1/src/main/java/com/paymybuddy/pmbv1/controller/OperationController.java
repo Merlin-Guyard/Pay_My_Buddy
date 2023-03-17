@@ -41,7 +41,7 @@ public class OperationController {
         return "operation";
     }
 
-    @PostMapping
+    @RequestMapping(value = "/transfer")
     public void transferMoney(Model model,
                               @NotNull String email,
                               @NotNull int amount) {

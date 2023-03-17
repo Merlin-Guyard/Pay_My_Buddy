@@ -2,6 +2,7 @@ package com.paymybuddy.pmbv1.service;
 
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,10 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    private MessageService messageService;
+
 
     public Iterable<User> getUsers(){
         return userRepository.findAll();
@@ -34,8 +39,17 @@ public class UserService {
         return contacts;
     }
 
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public String addUser(User user) throws Throwable {
+        List<User> users = userRepository.findAll();
+        for (User user2check : users)
+        {
+            if(user2check.getEmail().equals(user.getEmail())){
+                throw new Throwable(messageService.returnMessage("err.duplicate_user"));
+            }
+        }
+
+        userRepository.save(user);
+        return messageService.returnMessage("stat.register");
     }
 
     public void updateUser(User user) {
@@ -43,6 +57,7 @@ public class UserService {
         User user2Update = oUser2Update.get();
         user2Update.setFirstName(user.getFirstName());
         user2Update.setLastName(user.getLastName());
+        //TODO: fix email bug
         user2Update.setEmail(user.getEmail());
         userRepository.deleteById(user2Update.getUserId());
         userRepository.save(user2Update);

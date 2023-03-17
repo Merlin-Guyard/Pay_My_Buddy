@@ -88,26 +88,18 @@
     <div class="row">
 
         <form class="form" method="post"
-              th:action="@{/operation}">
-
-<!--            <a>Enter email address</a>-->
-<!--            <div class="d-flex justify-content-center">-->
-<!--                <input class="form-control"-->
-<!--                       id="username"-->
-<!--                       name="username"-->
-<!--                       placeholder="Email"-->
-<!--                       type="email">-->
-<!--            </div>-->
-
+              th:action="@{/transfer}">
 
             <div class="col-lg-4">
-                <select>
+                <select id="email"
+                        name="email">
                     <option value=""> Select A Connection</option>
+
+                    //TODO: fix missing input
                     <option th:each="user : ${users}"
                             th:utext="${user.firstName} + ' ' + ${user.lastName}"
                             th:value="${user.userId}"
-                            id="email"
-                            name="email">
+                            >
                     </option>
                 </select>
             </div>
