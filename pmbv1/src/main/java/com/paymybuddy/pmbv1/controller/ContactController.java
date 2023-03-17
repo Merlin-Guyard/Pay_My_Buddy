@@ -54,11 +54,4 @@ public class ContactController {
         return "home";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public void addUser(Model model,
-                        @NotNull String emailAdd) {
-
-        System.out.println(contactService.addContact(emailAdd));
-    }
-
 }
