@@ -3,23 +3,23 @@
 <head>
     <title>Pay My Buddy</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-            <img src="images/logo.png" alt="Logo PMB">
+        <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" href="/">
+            <img alt="Logo PMB" src="images/logo.png">
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="home" class="nav-link text-dark" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="transfer" class="nav-link text-primary">Transfer</a></li>
-            <li class="nav-item"><a href="profile" class="nav-link text-dark">Profile</a></li>
-            <li class="nav-item"><a href="contact" class="nav-link text-dark">Contact</a></li>
-            <li class="nav-item"><a href="login" class="nav-link text-dark">Log off</a></li>
+            <li class="nav-item"><a aria-current="page" class="nav-link text-dark" href="home">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-primary" href="transfer">Operation</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="profile">Profile</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="contact">Contact</a></li>
+            <li class="nav-item"><a class="nav-link text-dark" href="login">Log off</a></li>
         </ul>
     </header>
 </div>
@@ -28,83 +28,101 @@
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="home.html" class="nav-link px-2 text-primary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 link-secondary">/</a></li>
-                <li><a href="#" class="nav-link px-2 link-secondary">Transfer</a></li>
+                <li><a class="nav-link px-2 text-primary" href="home">Home</a></li>
+                <li><a class="nav-link px-2 link-secondary" href="#">/</a></li>
+                <li><a class="nav-link px-2 link-secondary" href="#">Transfer</a></li>
             </ul>
         </div>
     </div>
 </header>
 
-<form th:action="@{/operation}" method="post"
-      action="#"
-      class="form">
+<!--<form action="#" class="form"-->
+<!--      method="post"-->
+<!--      th:action="@{/operation}">-->
 
-    <a>Select friend</a>
-    <div class="d-flex justify-content-center">
-        <input type="email"
-               name="email"
-               class="form-control"
-               id="email"
-               placeholder="Email">
-    </div>
+<!--    <a>Select friend</a>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <input class="form-control"-->
+<!--               id="email"-->
+<!--               name="email"-->
+<!--               placeholder="Email"-->
+<!--               type="email">-->
+<!--    </div>-->
 
-    <a>Enter Amount</a>
-    <div class="d-flex justify-content-center">
-        <input type="amount"
-               name="amount"
-               class="form-control"
-               id="amount"
-               placeholder="Amount">
-    </div>
-    <div class="d-flex justify-content-center">
-        <button type="submit"
-                class="btn btn-primary"
-                id="BCreate">
-            Send
-        </button>
-    </div>
-</form>
+<!--    <a>Enter Amount</a>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <input class="form-control"-->
+<!--               id="amount"-->
+<!--               name="amount"-->
+<!--               placeholder="Amount"-->
+<!--               type="amount">-->
+<!--    </div>-->
+<!--    <div class="d-flex justify-content-center">-->
+<!--        <button class="btn btn-primary"-->
+<!--                id="BCreate"-->
+<!--                type="submit">-->
+<!--            Send-->
+<!--        </button>-->
+<!--    </div>-->
+<!--</form>-->
 
 <div class="container">
     <div class="row">
         <div class="col-md-6">Send Money</div>
         <div class="col-md-6">
             <p class="float-end">
-             <button type="submit"
-                    class="btn btn-primary"
-                    id="BAdd">
-                Add Contact
-             </button>
-            </p></span></div>
+                <a class="nav-link text-dark" href="add_contact">
+                    <button class="btn btn-primary float-end"
+                            id="BAdd"
+                            type="submit">
+                        Add Contact
+
+                    </button>
+                </a>
+            </p>
+            </span></div>
     </div>
 </div>
 
-
-
 <div class="container bg-light">
     <div class="row">
-        <div class="col-lg-4">
-            <select name="connection" id="connections">
-                <option value="contact 1">contact 1</option>
-                <option value="contact 2">contact 2</option>
-                <option value="contact 3">contact 3</option>
-            </select>
-        </div>
-        <div class="col-lg-4">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Amount" aria-label="Amount">
-                <button class="btn btn-outline-secondary" type="button">+</button>
-                <button class="btn btn-outline-secondary" type="button">-</button>
+
+        <form class="form" method="post"
+              th:action="@{/transfer}">
+
+            <div class="col-lg-4">
+                <select id="email"
+                        name="email">
+                    <option value=""> Select A Connection</option>
+
+                    //TODO: fix missing input
+                    <option th:each="user : ${users}"
+                            th:utext="${user.firstName} + ' ' + ${user.lastName}"
+                            th:value="${user.userId}"
+                            >
+                    </option>
+                </select>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <button type="submit"
-                    class="btn btn-primary float-end"
-                    id="BPay">
-                Pay
-            </button>
-        </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input aria-label="Amount"
+                           class="form-control"
+                           id="amount"
+                           name="amount"
+                           placeholder="Amount"
+                           type="text">
+                    <button class="btn btn-outline-secondary" type="button">+</button>
+                    <button class="btn btn-outline-secondary" type="button">-</button>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <button class="btn btn-primary float-end"
+                        id="BPay"
+                        type="submit">
+                    Pay
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 

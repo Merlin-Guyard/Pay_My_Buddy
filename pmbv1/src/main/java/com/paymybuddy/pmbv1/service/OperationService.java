@@ -46,7 +46,7 @@ public class OperationService {
             return messageService.returnMessage("err.operation");
         }
 
-        BigDecimal bd = new BigDecimal(amount*0.05).setScale(2, RoundingMode.HALF_DOWN);
+        BigDecimal bd = new BigDecimal(amount*0.005).setScale(2, RoundingMode.HALF_DOWN);
         double commission = bd.doubleValue();
 
         if (user.getBalance()-amount-commission<0.00) {

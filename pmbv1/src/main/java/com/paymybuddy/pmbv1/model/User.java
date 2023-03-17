@@ -55,7 +55,22 @@ public class User {
     )
     private List<User> friendList = new ArrayList<>();
 
+    @ManyToMany(
+            fetch = FetchType.LAZY
+    )
+    @JoinTable(name = "T_Operations_Users_Associations",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "operation_id")
+    )
+    private List<Operation> operationList = new ArrayList<>();
+
     public User() {
+    }
+
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public User(String firstName, String lastName, String email, String password) {
@@ -182,5 +197,13 @@ public class User {
 
     public void setFriendList(List<User> friendList) {
         this.friendList = friendList;
+    }
+
+    public List<Operation> getOperationList() {
+        return operationList;
+    }
+
+    public void setOperationList(List<Operation> operationList) {
+        this.operationList = operationList;
     }
 }
