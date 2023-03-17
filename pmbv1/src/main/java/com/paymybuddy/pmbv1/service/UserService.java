@@ -41,6 +41,8 @@ public class UserService {
 
     public String addUser(User user) throws Throwable {
         List<User> users = userRepository.findAll();
+
+        //TODO: errors/status feedback
         for (User user2check : users)
         {
             if(user2check.getEmail().equals(user.getEmail())){
