@@ -67,6 +67,12 @@ public class User {
     public User() {
     }
 
+    public User(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
+
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -87,9 +93,6 @@ public class User {
         this.card_user_firstname = card_user_firstname;
         this.card_user_lastname = card_user_lastname;
         this.enabled = enabled;
-    }
-
-    public User(String firstName, String lastName, String email) {
     }
 
     public int getUserId() {

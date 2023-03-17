@@ -40,11 +40,11 @@ public class ProfileController {
                           @NotNull String lastName,
                           @NotNull String email) {
 
-        //save user
+        //update user
         User user = new User(firstName, lastName, email);
         userService.updateUser(user);
 
-        return "profile";
+        return "home";
     }
 
 }

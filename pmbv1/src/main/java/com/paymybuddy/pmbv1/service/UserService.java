@@ -38,13 +38,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateUser(User user) {
-        User user2Update = userRepository.getById(user.getUserId());
+    public void updateUser(User user) {
+        Optional<User> oUser2Update = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user2Update = oUser2Update.get();
         user2Update.setFirstName(user.getFirstName());
         user2Update.setLastName(user.getLastName());
         user2Update.setEmail(user.getEmail());
         userRepository.deleteById(user2Update.getUserId());
-        return userRepository.save(user2Update);
+        userRepository.save(user2Update);
     }
 
     public void delUser(Integer id) {
