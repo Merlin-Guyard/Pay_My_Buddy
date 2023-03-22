@@ -42,12 +42,11 @@ public class ContactController {
 //        System.out.println(contactService.addContact(emailAdd));
 //    }
 
-    @RequestMapping(value = "/contact/del")
-    public String removeUser(Model model,
-                             @NotNull String emailDel) {
+    @GetMapping(value = "/contact/del")
+    public String removeUser(@RequestParam String userEmail) {
 
-        System.out.println(contactService.removeContact(emailDel));
-        return "home";
+        System.out.println(contactService.removeContact(userEmail));
+        return "redirect:/contact";
     }
 
 //    @GetMapping(value = "/del")

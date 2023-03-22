@@ -57,10 +57,7 @@
                             <td th:text="${user.email}"></td>
                             <td>
                                 //TODO: fix button redirect
-                                <form th:action="@{/del}" method="post" class="form">
-                                    <input type="hidden" name="email" th:value="${user.email}">
-                                    <button type="submit">Delete</button>
-                                </form>
+                                <a th:href="@{/contact/del(userEmail=${user.email})}" class="btn btn-danger ml-2">Delete</a>
 
 <!--                                <a th:href="@{/del(userEmail=${user.email})}" class="btn btn-danger">Delete</a>-->
                             </td>
