@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/profile")
 public class ProfileController {
 
     @Autowired
@@ -25,7 +24,7 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("/profile")
     public String getProfile(Model model) {
         Optional<User> oUser = userService.getUserByEmail();
         User user = oUser.get();
@@ -34,7 +33,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @PostMapping
+    @PostMapping("/profile")
     public String getUser(Model model,
                           @NotNull String firstName,
                           @NotNull String lastName,

@@ -15,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/register")
     public String getRegister() {
-        return "register_form";
+        return "register";
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public String getUser(@Valid Model model,
                           @NotNull String firstName,
                           @NotNull String lastName,
@@ -43,7 +42,7 @@ public class RegisterController {
             return "login";
         } catch (Throwable throwable) {
             throwable.printStackTrace();
-            return "register_form";
+            return "register";
         }
 
 

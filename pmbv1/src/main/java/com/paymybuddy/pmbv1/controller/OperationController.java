@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/operation")
 public class OperationController {
 
     @Autowired
@@ -31,7 +30,7 @@ public class OperationController {
     @Autowired
     UserService userService;
 
-    @GetMapping
+    @GetMapping("/operation")
     public String getTransfer(Model model) {
         Optional<User> oUser = userService.getUserByEmail();
         User user = oUser.get();
@@ -41,7 +40,7 @@ public class OperationController {
         return "operation";
     }
 
-    @RequestMapping(value = "/transfer")
+    @RequestMapping("/operation/transfer")
     public void transferMoney(Model model,
                               @NotNull String email,
                               @NotNull int amount) {

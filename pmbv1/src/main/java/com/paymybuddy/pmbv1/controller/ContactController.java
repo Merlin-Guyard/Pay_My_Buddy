@@ -42,7 +42,7 @@ public class ContactController {
 //        System.out.println(contactService.addContact(emailAdd));
 //    }
 
-    @GetMapping(value = "/contact/del")
+    @GetMapping("/contact/del")
     public String removeUser(@RequestParam String userEmail) {
 
         System.out.println(contactService.removeContact(userEmail));
