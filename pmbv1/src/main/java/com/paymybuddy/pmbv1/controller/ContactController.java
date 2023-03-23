@@ -41,7 +41,7 @@ public class ContactController {
         return "redirect:/contact";
     }
 
-    @GetMapping("/contact/add")
+    @RequestMapping(value="/contact/add", method= RequestMethod.POST)
     public String addUser(Model model,
                           @NotNull String emailAdd) {
 
