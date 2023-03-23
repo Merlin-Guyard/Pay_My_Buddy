@@ -32,8 +32,7 @@ public class OperationController {
 
     @GetMapping("/operation")
     public String getTransfer(Model model) {
-        Optional<User> oUser = userService.getUserByEmail();
-        User user = oUser.get();
+        User user = userService.getUserByEmail();
         List<User> contacts = new ArrayList<>(user.getFriendList());
 
         model.addAttribute("users", contacts);

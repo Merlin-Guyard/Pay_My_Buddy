@@ -29,8 +29,15 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public Optional<User> getUserByEmail() {
-        return userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    public User getUserByEmail() {
+
+        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        //TODO
+        if(oUser.isEmpty()) {
+            return oUser.get();
+        }
+        return oUser.get();
     }
 
     public Iterable<User> getContacts(){

@@ -26,21 +26,13 @@ public class ContactController {
 
     @GetMapping("/contact")
     public String getContact(Model model) {
-        Optional<User> oUser = userService.getUserByEmail();
-        User user = oUser.get();
+        User user = userService.getUserByEmail();
+        //TODO : get contact
         List<User> contacts = new ArrayList<>(user.getFriendList());
-
 
         model.addAttribute("users", contacts);
         return "contact";
     }
-
-//    @PostMapping
-//    public void addUser(Model model,
-//                        @NotNull String emailAdd) {
-//
-//        System.out.println(contactService.addContact(emailAdd));
-//    }
 
     @GetMapping("/contact/del")
     public String removeUser(@RequestParam String userEmail) {
@@ -49,12 +41,13 @@ public class ContactController {
         return "redirect:/contact";
     }
 
-//    @GetMapping(value = "/del")
-//    public String removeUser(@RequestParam String userEmail) {
-//
-//        System.out.println(contactService.removeContact(userEmail));
-//        return "home";
-//    }
+    @GetMapping("/contact/add")
+    public String addUser(Model model,
+                          @NotNull String emailAdd) {
+
+        System.out.println(contactService.addContact(emailAdd));
+        return "redirect:/contact";
+    }
 
 
 }

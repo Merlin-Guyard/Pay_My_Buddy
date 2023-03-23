@@ -26,8 +26,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String getProfile(Model model) {
-        Optional<User> oUser = userService.getUserByEmail();
-        User user = oUser.get();
+        User user = userService.getUserByEmail();
 
         model.addAttribute("user", user);
         return "profile";
