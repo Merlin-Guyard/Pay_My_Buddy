@@ -44,32 +44,4 @@ public class OperationController {
         return "redirect:/operation";
     }
 
-
-
-//    @RequestMapping(value = "user", method = RequestMethod.GET)
-//    public String users(Model model) {
-//        List<User> toto = userRepository.findAll();
-//        model.addAttribute("users", toto );
-////        String
-////        if (hasError) {
-////            model.addAttribute("errorAmount", message)
-////        }
-//        return "user/list";
-//    }
-
-
-
-//    @PostMapping
-//    public void addMoney(Model model,
-//                              @NotNull int amount) {
-//
-////        operationService.send(contact, amount);
-//    }
-//
-//    @PostMapping
-//    public void retrieveMoney(Model model,
-//                              @NotNull int amount) {
-//
-////        operationService.send(contact, amount);
-//    }
 }

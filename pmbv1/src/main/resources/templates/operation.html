@@ -86,43 +86,6 @@
 <div class="container bg-light">
     <div class="row">
 
-<!--        <form class="form" method="post"-->
-<!--              th:action="@{/operation/transfer}">-->
-
-<!--            <div class="col-lg-4">-->
-<!--                <select id="esdfsdfmail"-->
-<!--                        name="email">-->
-<!--                    <option value=""> Select A Connection</option>-->
-
-<!--                    //TODO: fix missing input-->
-<!--                    <option th:each="contact : ${contacts}"-->
-<!--                            th:utext="${user.firstName} + ' ' + ${user.lastName}"-->
-<!--                            th:value="${user.email}"-->
-<!--                    >-->
-<!--                    </option>-->
-<!--                </select>-->
-<!--            </div>-->
-<!--            <div class="col-lg-4">-->
-<!--                <div class="input-group">-->
-<!--                    <input aria-label="Amount"-->
-<!--                           class="form-control"-->
-<!--                           id="sdf"-->
-<!--                           name="amount"-->
-<!--                           placeholder="Amount"-->
-<!--                           type="text">-->
-<!--                    <button class="btn btn-outline-secondary" type="button">+</button>-->
-<!--                    <button class="btn btn-outline-secondary" type="button">-</button>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-lg-4">-->
-<!--                <button class="btn btn-primary float-end"-->
-<!--                        id="BPsdfay"-->
-<!--                        type="submit">-->
-<!--                    Pay-->
-<!--                </button>-->
-<!--            </div>-->
-<!--        </form>-->
-
         <form action="#" class="form"
               method="post"
               th:action="@{/operation/transfer}">
@@ -133,8 +96,6 @@
                         <select id="email"
                                 name="email">
                             <option value=""> Select A Connection</option>
-
-                            //TODO: fix missing input
                             <option th:each="user : ${users}"
                                     th:utext="${user.firstName} + ' ' + ${user.lastName}"
                                     th:value="${user.email}"

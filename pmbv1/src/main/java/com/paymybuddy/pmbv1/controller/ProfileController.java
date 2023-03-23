@@ -2,6 +2,7 @@ package com.paymybuddy.pmbv1.controller;
 
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
+import com.paymybuddy.pmbv1.service.OperationService;
 import com.paymybuddy.pmbv1.service.UserService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OperationService operationService;
+
     @GetMapping("/profile")
     public String getProfile(Model model) {
         User user = userService.getUserByEmail();
@@ -32,17 +36,13 @@ public class ProfileController {
         return "profile";
     }
 
-    @PostMapping("/profile")
-    public String getUser(Model model,
-                          @NotNull String firstName,
-                          @NotNull String lastName,
-                          @NotNull String email) {
+    @RequestMapping("/profile/bank")
+    public String manageMoney(Model model,
+                              @NotNull String operation,
+                              @NotNull int amount) {
 
-        //update user
-        User user = new User(firstName, lastName, email);
-        userService.updateUser(user);
-
-        return "home";
+        System.out.println(operationService.manage(operation, amount));
+        return "redirect:/profile";
     }
 
 }
