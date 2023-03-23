@@ -48,6 +48,5 @@ public class ContactController {
         System.out.println(contactService.addContact(emailAdd));
         return "redirect:/contact";
     }
-
-
+    
 }
