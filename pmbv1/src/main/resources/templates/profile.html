@@ -37,72 +37,73 @@
     </div>
 </header>
 
-<div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-2"><img class="rounded-circle mt-5"
-                                                                                         width="150px"
-                                                                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-                    class="font-weight-bold" th:text="${user.firstName} + ${user.lastName}"></span><span
-                    class="text-black-50" th:text="${user.email}"></span><span> </span></div>
-        </div>
+<div class="container">
 
-        <div class="col-md-5 border-right">
+
+    <div class="container bg-light">
+        <div class="row">
+
+            <div class="p-3 py-5">
+                <div class="row mt-2">
+                    <div class="col-md-4"><label class="labels"><span th:text="${user.firstName}"></span></label>
+                    </div>
+
+                    <div class="col-md-4"><label class="labels"><span th:text="${user.lastName}"></span></label>
+                    </div>
+
+                    <div class="col-md-4"><label class="labels"><span
+                            th:text="'Your balance : ' + ${user.balance}"></span></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container bg-light">
+        <div class="row">
 
             <form action="#" class="form"
                   method="post"
-                  th:action="@{/profile}">
+                  th:action="@{/profile/bank}">
 
                 <div class="p-3 py-5">
                     <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels"><span th:text="${user.firstName}"></span></label>
-                            <input class="form-control"
-                                   id="firstName"
-                                   name="firstName"
-                                   placeholder="First Name"
-                                   required
-                                   type="text">
+                        <div class="col-lg-4">
+                            <select id="type"
+                                    name="email">
+                                <option value=""> Select An Action</option>
+                                <option value="retrait">Retrait</option>
+                                <option value="depot">Dépôt</option>
+                            </select>
                         </div>
 
-                        <div class="col-md-6"><label class="labels"><span th:text="${user.lastName}"></span></label>
-                            <input class="form-control"
-                                   id="lastName"
-                                   name="lastName"
-                                   placeholder="last Name"
-                                   type="text">
+                        <div class="col-lg-4">
+                            <div class="input-group">
+                                <input aria-label="Amount"
+                                       class="form-control"
+                                       id="amount"
+                                       name="amount"
+                                       placeholder="Amount"
+                                       type="text">
+                                <button class="btn btn-outline-secondary" type="button">+</button>
+                                <button class="btn btn-outline-secondary" type="button">-</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels"><span th:text="${user.email}"></span></label>
-                            <input class="form-control"
-                                   id="email"
-                                   name="email"
-                                   placeholder="Email"
-                                   type="email">
-                        </div>
-                        <div class="mt-5 text-center">
-                            <button type="submit"
-                                    class="btn btn-primary"
-                                    id="BUpdate">
-                                Update Profile
+
+                        <div class="col-lg-4">
+                            <button class="btn btn-primary float-end"
+                                    id="BValidate"
+                                    type="submit">
+                                Validate
                             </button>
                         </div>
                     </div>
                 </div>
             </form>
-
-
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Your balance : </label><a><span
-                            th:text="' ' + ${user.balance}"></span></a></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-
 </body>
 

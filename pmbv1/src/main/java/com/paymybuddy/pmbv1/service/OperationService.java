@@ -65,4 +65,7 @@ public class OperationService {
 
         return messageService.returnMessage("stat.transfer");
     }
+
+    public void manage(String operation, int amount) {
+    }
 }

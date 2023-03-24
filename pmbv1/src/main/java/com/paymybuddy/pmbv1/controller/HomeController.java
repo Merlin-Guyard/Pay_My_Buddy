@@ -12,13 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/home")
 public class HomeController {
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("/home")
     public String getHome() {
 
         return "home";

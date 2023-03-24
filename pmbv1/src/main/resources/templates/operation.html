@@ -71,12 +71,11 @@
         <div class="col-md-6">Send Money</div>
         <div class="col-md-6">
             <p class="float-end">
-                <a class="nav-link text-dark" href="add_contact">
+                <a class="nav-link text-dark" href="contact">
                     <button class="btn btn-primary float-end"
                             id="BAdd"
                             type="submit">
                         Add Contact
-
                     </button>
                 </a>
             </p>
@@ -87,40 +86,45 @@
 <div class="container bg-light">
     <div class="row">
 
-        <form class="form" method="post"
-              th:action="@{/transfer}">
+        <form action="#" class="form"
+              method="post"
+              th:action="@{/operation/transfer}">
 
-            <div class="col-lg-4">
-                <select id="email"
-                        name="email">
-                    <option value=""> Select A Connection</option>
-
-                    //TODO: fix missing input
-                    <option th:each="user : ${users}"
-                            th:utext="${user.firstName} + ' ' + ${user.lastName}"
-                            th:value="${user.userId}"
+            <div class="p-3 py-5">
+                <div class="row mt-2">
+                    <div class="col-lg-4">
+                        <select id="email"
+                                name="email">
+                            <option value=""> Select A Connection</option>
+                            <option th:each="user : ${users}"
+                                    th:utext="${user.firstName} + ' ' + ${user.lastName}"
+                                    th:value="${user.email}"
                             >
-                    </option>
-                </select>
-            </div>
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <input aria-label="Amount"
-                           class="form-control"
-                           id="amount"
-                           name="amount"
-                           placeholder="Amount"
-                           type="text">
-                    <button class="btn btn-outline-secondary" type="button">+</button>
-                    <button class="btn btn-outline-secondary" type="button">-</button>
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <input aria-label="Amount"
+                                   class="form-control"
+                                   id="amount"
+                                   name="amount"
+                                   placeholder="Amount"
+                                   type="text">
+                            <button class="btn btn-outline-secondary" type="button">+</button>
+                            <button class="btn btn-outline-secondary" type="button">-</button>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <button class="btn btn-primary float-end"
+                                id="BPay"
+                                type="submit">
+                            Pay
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <button class="btn btn-primary float-end"
-                        id="BPay"
-                        type="submit">
-                    Pay
-                </button>
             </div>
         </form>
     </div>

@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/contact")
 public class ContactController {
 
     @Autowired
@@ -25,38 +24,29 @@ public class ContactController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
+    @GetMapping("/contact")
     public String getContact(Model model) {
-        Optional<User> oUser = userService.getUserByEmail();
-        User user = oUser.get();
+        User user = userService.getUserByEmail();
+        //TODO : get contact
         List<User> contacts = new ArrayList<>(user.getFriendList());
-
 
         model.addAttribute("users", contacts);
         return "contact";
     }
 
-//    @PostMapping
-//    public void addUser(Model model,
-//                        @NotNull String emailAdd) {
-//
-//        System.out.println(contactService.addContact(emailAdd));
-//    }
+    @GetMapping("/contact/del")
+    public String removeUser(@RequestParam String userEmail) {
 
-    @RequestMapping(value = "/del")
-    public String removeUser(Model model,
-                             @NotNull String emailDel) {
-
-        System.out.println(contactService.removeContact(emailDel));
-        return "home";
+        System.out.println(contactService.removeContact(userEmail));
+        return "redirect:/contact";
     }
 
-//    @GetMapping(value = "/del")
-//    public String removeUser(@RequestParam String userEmail) {
-//
-//        System.out.println(contactService.removeContact(userEmail));
-//        return "home";
-//    }
+    @RequestMapping(value="/contact/add", method= RequestMethod.POST)
+    public String addUser(Model model,
+                          @NotNull String emailAdd) {
 
-
+        System.out.println(contactService.addContact(emailAdd));
+        return "redirect:/contact";
+    }
+    
 }

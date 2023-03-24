@@ -21,11 +21,5 @@ public class AddContactController {
         return "add_contact";
     }
 
-    @RequestMapping(value="/add", method= RequestMethod.POST)
-    public String addUser(Model model,
-                          @NotNull String emailAdd) {
 
-        System.out.println(contactService.addContact(emailAdd));
-        return "contact";
-    }
 }

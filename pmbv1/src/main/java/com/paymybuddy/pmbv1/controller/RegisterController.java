@@ -4,48 +4,46 @@ import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.service.UserService;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/register")
 public class RegisterController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public String getRegister() {
-        return "register_form";
+    @GetMapping("/register")
+    public String getRegister(User user) {
+        return "register";
     }
 
-    @PostMapping
-    public String getUser(Model model,
-                          @NotNull String firstName,
-                          @NotNull String lastName,
-                          @NotNull String email,
-                          @NotNull String password) {
+    @PostMapping("/register")
+    public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String err = "Oulala";
+        ObjectError error = new ObjectError("globalError", err);
+        bindingResult.addError(error);
 
-        //save user
-        User user = new User(firstName, lastName, email, bCryptPasswordEncoder.encode(password));
-
-        try {
-            userService.addUser(user);
-            return "login";
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-            return "register_form";
+        if(bindingResult.hasErrors()){
+            return "register";
         }
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        User user2Add = new User(user.getFirstName(), user.getLastName(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()));
 
+        userService.addUser(user2Add);
+        return "login";
     }
 
 }
