@@ -31,19 +31,22 @@ public class RegisterController {
     @PostMapping("/register")
     public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
 
-        String err = "Oulala";
-        ObjectError error = new ObjectError("globalError", err);
-        bindingResult.addError(error);
-
         if(bindingResult.hasErrors()){
             return "register";
         }
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        User user2Add = new User(user.getFirstName(), user.getLastName(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()));
-
-        userService.addUser(user2Add);
-        return "login";
+        try {
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+            User user2Add = new User(user.getFirstName(), user.getLastName(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()));
+            userService.addUser(user);
+            return "login";
+        } catch (Throwable throwable) {
+            String err = throwable.getMessage();
+            ObjectError error = new ObjectError("globalError", err);
+            bindingResult.addError(error);
+            return "register";
+        }
     }
+
 
 }

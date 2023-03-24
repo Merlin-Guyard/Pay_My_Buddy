@@ -92,7 +92,7 @@
 
             <div class="p-3 py-5">
                 <div class="row mt-2">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <select id="email"
                                 name="email">
                             <option value=""> Select A Connection</option>
@@ -104,7 +104,18 @@
                         </select>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                            <input aria-label="Description"
+                                   class="form-control"
+                                   id="description"
+                                   name="description"
+                                   placeholder="description"
+                                   type="text">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
                         <div class="input-group">
                             <input aria-label="Amount"
                                    class="form-control"
@@ -117,7 +128,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <button class="btn btn-primary float-end"
                                 id="BPay"
                                 type="submit">
@@ -144,7 +155,7 @@
         <div class="col-lg-12">
             <div class="main-box clearfix">
                 <div class="table-responsive">
-                    <table class="table user-list">
+                    <table class="table operation-list">
                         <thead>
                         <tr>
                             <th class="bg-success text-white"><span>Connections</span></th>
@@ -153,38 +164,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>Cinema</a>
-                            </td>
-                            <td>
-                                <a>15€</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>Cinema</a>
-                            </td>
-                            <td>
-                                <a>15€</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a>Stevie Wonder</a>
-                            </td>
-                            <td>
-                                <a>Cinema</a>
-                            </td>
-                            <td>
-                                <a>15€</a>
-                            </td>
+                        <tr th:each="operation : ${operations}">
+                            <td th:text="${operation.receiver}"></td>
+                            <td th:text="${operation.description}"></td>
+                            <td th:text="${operation.amount}"></td>
                         </tr>
                         </tbody>
                     </table>

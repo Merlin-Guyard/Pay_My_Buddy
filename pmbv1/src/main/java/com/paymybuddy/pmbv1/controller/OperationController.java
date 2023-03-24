@@ -1,5 +1,6 @@
 package com.paymybuddy.pmbv1.controller;
 
+import com.paymybuddy.pmbv1.model.Operation;
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.service.ContactService;
 import com.paymybuddy.pmbv1.service.OperationService;
@@ -27,20 +28,24 @@ public class OperationController {
     UserService userService;
 
     @GetMapping("/operation")
-    public String getTransfer(Model model) {
+    public String getTransfer(Model model) throws Throwable {
         User user = userService.getUserByEmail();
         List<User> contacts = new ArrayList<>(user.getFriendList());
 
+        List<Operation> operations = operationService.getOperations();
+
         model.addAttribute("users", contacts);
+        model.addAttribute("operations", operations);
         return "operation";
     }
 
     @RequestMapping("/operation/transfer")
     public String transferMoney(Model model,
                                 @NotNull String email,
+                                @NotNull String description,
                                 @NotNull int amount) {
 
-        System.out.println(operationService.send(email, amount));
+        System.out.println(operationService.send(email, description, amount));
         return "redirect:/operation";
     }
 

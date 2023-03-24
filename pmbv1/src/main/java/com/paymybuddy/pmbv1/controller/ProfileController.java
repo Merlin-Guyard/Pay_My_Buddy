@@ -39,7 +39,7 @@ public class ProfileController {
     @RequestMapping("/profile/bank")
     public String manageMoney(Model model,
                               @NotNull String operation,
-                              @NotNull int amount) {
+                              @NotNull int amount) throws Throwable {
 
         operationService.manage(operation, amount);
         return "redirect:/profile";
