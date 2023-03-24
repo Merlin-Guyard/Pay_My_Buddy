@@ -20,29 +20,26 @@ public class ContactService {
     private MessageService messageService;
 
     public String addContact(String email) throws Throwable {
-        if(true) {
-            throw new Throwable(messageService.returnMessage("err.duplicate_user"));
-        }
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(oUser.isEmpty()) {
-            return messageService.returnMessage("err.unknown_user");
+            throw new Throwable(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
 
         Optional<User> oContact = userRepository.findByEmail(email);
         if(oContact.isEmpty()) {
-            return messageService.returnMessage("err.unknown_contact");
+            throw new Throwable(messageService.returnMessage("err.unknown_contact"));
         }
         User contact = oContact.get();
 
         if (user.getUserId() == contact.getUserId()) {
-            return messageService.returnMessage("err.contact_is_user");
+            throw new Throwable(messageService.returnMessage("err.contact_is_user"));
         }
 
         boolean isAlreadyFriend = user.getFriendList().stream().anyMatch(friend -> friend.getEmail().equals(contact.getEmail()));
         if (isAlreadyFriend) {
-            return messageService.returnMessage("err.duplicate_contact");
+            throw new Throwable(messageService.returnMessage("err.duplicate_contact"));
         }
 
         List<User> userContactList = user.getFriendList();
@@ -53,23 +50,23 @@ public class ContactService {
         return messageService.returnMessage("stat.add_contact");
     }
 
-    public String removeContact(String email) {
+    public String removeContact(String email) throws Throwable {
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(oUser.isEmpty()) {
-            return messageService.returnMessage("err.unknown_user");
+            throw new Throwable(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
 
         Optional<User> oContact = userRepository.findByEmail(email);
         if(oContact.isEmpty()) {
-            return messageService.returnMessage("err.unknown_contact");
+            throw new Throwable(messageService.returnMessage("err.unknown_contact"));
         }
         User contact = oContact.get();
 
         boolean isAlreadyFriend = user.getFriendList().stream().anyMatch(friend -> friend.getEmail().equals(contact.getEmail()));
         if (!isAlreadyFriend) {
-            return messageService.returnMessage("err.not_friend_contact");
+            throw new Throwable(messageService.returnMessage("err.not_friend_contact"));
         }
 
         List<User> userContactList = user.getFriendList();

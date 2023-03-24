@@ -13,15 +13,11 @@ public class Operation {
     @Column(name="operation_id")
     private int operationId;
 
-    @ManyToMany
-    @JoinTable( name = "T_Operations_Users_Associations",
-            joinColumns = @JoinColumn( name = "operation_id" ),
-            inverseJoinColumns = @JoinColumn( name = "user_id" ) )
-    private List<User> users = new ArrayList<>();
-
+//    @ManyToOne @JoinColumn(name = "user_id")
     @Column(name="sender")
     private String sender;
 
+//    @ManyToOne @JoinColumn(name = "user_id")
     @Column(name="receiver")
     private String receiver;
 
@@ -31,9 +27,18 @@ public class Operation {
     @Column(name="amount")
     private int amount;
 
-    public Operation(int operationId, List<User> users, String sender, String receiver, String description, int amount) {
+    public Operation() {
+    }
+
+    public Operation(String sender, String receiver, String description, int amount) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.description = description;
+        this.amount = amount;
+    }
+
+    public Operation(int operationId, String sender, String receiver, String description, int amount) {
         this.operationId = operationId;
-        this.users = users;
         this.sender = sender;
         this.receiver = receiver;
         this.description = description;
@@ -46,14 +51,6 @@ public class Operation {
 
     public void setOperationId(int operationId) {
         this.operationId = operationId;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public String getSender() {

@@ -20,15 +20,6 @@ public class UserService {
     @Autowired
     private MessageService messageService;
 
-
-    public Iterable<User> getUsers(){
-        return userRepository.findAll();
-    }
-
-    public Optional<User> getUserById(Integer id) {
-        return userRepository.findById(id);
-    }
-
     public User getUserByEmail() {
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -59,9 +50,5 @@ public class UserService {
 
         userRepository.save(user);
         return messageService.returnMessage("stat.register");
-    }
-
-    public void delUser(Integer id) {
-        userRepository.deleteById(id);
     }
 }
