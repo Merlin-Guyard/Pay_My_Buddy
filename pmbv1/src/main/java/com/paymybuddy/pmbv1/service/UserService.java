@@ -44,7 +44,7 @@ public class UserService {
         for (User user2check : users)
         {
             if(user2check.getEmail().equals(user.getEmail())){
-                throw new Throwable(messageService.returnMessage("err.duplicate_user"));
+                throw new RuntimeException(messageService.returnMessage("err.duplicate_user"));
             }
         }
 

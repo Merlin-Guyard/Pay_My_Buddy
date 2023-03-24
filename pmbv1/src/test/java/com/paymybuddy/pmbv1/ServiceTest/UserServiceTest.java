@@ -5,9 +5,12 @@ import com.paymybuddy.pmbv1.repository.UserRepository;
 import com.paymybuddy.pmbv1.service.MessageService;
 import com.paymybuddy.pmbv1.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.platform.commons.util.RuntimeUtils;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -18,9 +21,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -33,7 +37,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    public void testAddUserDuplicate() throws Throwable {
+    public void testAddUserDuplicate() throws RuntimeException {
         // create a new user
         User user = new User();
         user.setEmail("test@example.com");
@@ -50,11 +54,9 @@ public class UserServiceTest {
         Mockito.when(messageService.returnMessage("err.duplicate_user")).thenReturn(errorMessage);
 
         // add user expecting to fail and check if message is correct
-        try {
-            userService.addUser(user);
-        } catch (Throwable e) {
-            assertEquals(errorMessage, e.getMessage());
-        }
+
+         RuntimeException result = assertThrows(RuntimeException.class, () -> userService.addUser(user));
+         assertEquals(errorMessage, result.getMessage());
     }
 
     @Test

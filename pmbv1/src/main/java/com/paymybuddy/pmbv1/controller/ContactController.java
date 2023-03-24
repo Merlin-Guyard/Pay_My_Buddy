@@ -40,8 +40,7 @@ public class ContactController {
     }
 
     @GetMapping("/contact/del")
-    public String removeUser(@RequestParam String userEmail, Errors errors) throws Throwable {
-
+    public String removeUser(@RequestParam String userEmail) throws Throwable {
         System.out.println(contactService.removeContact(userEmail));
         return "redirect:/contact";
     }
@@ -50,7 +49,7 @@ public class ContactController {
     public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
 
         if(bindingResult.hasErrors()){
-            return "contact";
+            return "redirect:/contact?error";
         }
 
         try {
@@ -60,8 +59,7 @@ public class ContactController {
             String err = throwable.getMessage();
             ObjectError error = new ObjectError("globalError", err);
             bindingResult.addError(error);
-            return "contact";
         }
+            return "redirect:/contact?error";
     }
-    
 }
