@@ -19,7 +19,10 @@ public class ContactService {
     @Autowired
     private MessageService messageService;
 
-    public String addContact(String email) {
+    public String addContact(String email) throws Throwable {
+        if(true) {
+            throw new Throwable(messageService.returnMessage("err.duplicate_user"));
+        }
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(oUser.isEmpty()) {
