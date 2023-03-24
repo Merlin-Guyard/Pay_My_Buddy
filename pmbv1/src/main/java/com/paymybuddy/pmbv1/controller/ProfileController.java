@@ -41,7 +41,7 @@ public class ProfileController {
                               @NotNull String operation,
                               @NotNull int amount) {
 
-        System.out.println(operationService.manage(operation, amount));
+        operationService.manage(operation, amount);
         return "redirect:/profile";
     }
 
