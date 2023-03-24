@@ -66,6 +66,6 @@ public class OperationService {
         return messageService.returnMessage("stat.transfer");
     }
 
-    public boolean manage(String operation, int amount) {
+    public void manage(String operation, int amount) {
     }
 }

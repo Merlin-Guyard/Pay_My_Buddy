@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,31 +24,26 @@ public class RegisterController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String getRegister() {
+    public String getRegister(User user) {
         return "register";
     }
 
     @PostMapping("/register")
-    public String getUser(@Valid Model model,
-                          @NotNull String firstName,
-                          @NotNull String lastName,
-                          @NotNull String email,
-                          @NotNull String password) {
+    public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        String err = "Oulala";
+        ObjectError error = new ObjectError("globalError", err);
+        bindingResult.addError(error);
 
-        //save user
-        User user = new User(firstName, lastName, email, bCryptPasswordEncoder.encode(password));
-
-        try {
-            userService.addUser(user);
-            return "login";
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+        if(bindingResult.hasErrors()){
             return "register";
         }
 
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        User user2Add = new User(user.getFirstName(), user.getLastName(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()));
 
+        userService.addUser(user2Add);
+        return "login";
     }
 
 }

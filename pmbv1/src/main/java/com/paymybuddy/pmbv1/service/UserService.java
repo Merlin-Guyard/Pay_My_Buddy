@@ -61,17 +61,6 @@ public class UserService {
         return messageService.returnMessage("stat.register");
     }
 
-    public void updateUser(User user) {
-        Optional<User> oUser2Update = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        User user2Update = oUser2Update.get();
-        user2Update.setFirstName(user.getFirstName());
-        user2Update.setLastName(user.getLastName());
-        //TODO: fix email bug
-        user2Update.setEmail(user.getEmail());
-        userRepository.deleteById(user2Update.getUserId());
-        userRepository.save(user2Update);
-    }
-
     public void delUser(Integer id) {
         userRepository.deleteById(id);
     }
