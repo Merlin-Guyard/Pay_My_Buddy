@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -37,12 +36,12 @@ public class UserServiceTest {
     public void testAddUserDuplicate() throws Throwable {
         // create a new user
         User user = new User();
-        user.setEmail("test@test.com");
+        user.setEmail("test@example.com");
 
         // mock an existing user
         List<User> users = new ArrayList<>();
         User existingUser = new User();
-        existingUser.setEmail("test@test.com");
+        existingUser.setEmail("test@example.com");
         users.add(existingUser);
         Mockito.when(userRepository.findAll()).thenReturn(users);
 
@@ -80,18 +79,18 @@ public class UserServiceTest {
 
     @Test
     void getUserByEmailTest() {
-        // mock the security context to return a test authentication object
+        // mock the security context holder
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);
         Authentication authentication = Mockito.mock(Authentication.class);
         when(authentication.getName()).thenReturn("test@example.com");
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
 
-        // mock the repository to return a test user object with the same email
-        User testUser = new User("test@example.com", "password", "Test", "User");
+        // mock an existing user
+        User testUser = new User("test@example.com", "password", "test@example.com", "User");
         when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(testUser));
 
-        // assert that the getUserByEmail method returns the test user object
+        // check if users are matching
         User returnedUser = userService.getUserByEmail();
         assertEquals(testUser, returnedUser);
     }
