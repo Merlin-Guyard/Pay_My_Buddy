@@ -135,6 +135,9 @@
                             Pay
                         </button>
                     </div>
+
+                    <div class="alert alert-primary" role="alert" th:text="${ope_status}" th:if="${ope_status}"></div>
+                    <div class="alert alert-warning" role="alert" th:text="${ope_error}" th:if="${ope_error}"></div>
                 </div>
             </div>
         </form>
@@ -172,15 +175,7 @@
                         </tbody>
                     </table>
                 </div>
-                <ul class="pagination pull-right">
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">></a></li>
-                </ul>
+                <div class="alert alert-warning" role="alert" th:text="${fetch_error}" th:if="${fetch_error}"></div>
             </div>
         </div>
     </div>
