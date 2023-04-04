@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -46,20 +48,16 @@ public class ContactController {
     }
 
     @PostMapping("/contact/add")
-    public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
+    public String getUser(User user, Model model, RedirectAttributes redirectAttributes) throws RuntimeException {
 
-        if(bindingResult.hasErrors()){
-            return "redirect:/contact?error";
-        }
-
-        try {
-            contactService.addContact(user.getEmail());
+            try {
+                String status = contactService.addContact(user.getEmail());
+                redirectAttributes.addFlashAttribute("status", status);
+            }
+            catch (RuntimeException exception) {
+                String error = exception.getMessage();
+                redirectAttributes.addFlashAttribute("error", error);
+            }
             return "redirect:/contact";
-        } catch (Throwable throwable) {
-            String err = throwable.getMessage();
-            ObjectError error = new ObjectError("globalError", err);
-            bindingResult.addError(error);
         }
-            return "redirect:/contact?error";
-    }
 }
