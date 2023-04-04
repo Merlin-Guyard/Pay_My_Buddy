@@ -17,11 +17,14 @@ public class ContactService {
     private UserRepository userRepository;
 
     @Autowired
+    SCHService schService;
+
+    @Autowired
     private MessageService messageService;
 
     public String addContact(String email) throws RuntimeException {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if(oUser.isEmpty()) {
             throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
@@ -52,7 +55,7 @@ public class ContactService {
 
     public String removeContact(String email) throws RuntimeException {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if(oUser.isEmpty()) {
             throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }

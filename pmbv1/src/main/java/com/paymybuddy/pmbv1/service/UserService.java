@@ -20,9 +20,12 @@ public class UserService {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    SCHService schService;
+
     public User getUserByEmail() {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
 
         //TODO
         if(oUser.isEmpty()) {

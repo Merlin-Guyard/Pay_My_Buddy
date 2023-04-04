@@ -26,6 +26,9 @@ public class OperationService {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    SCHService schService;
+
     public String send(String email, String description, int amount) throws RuntimeException {
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -92,6 +95,10 @@ public class OperationService {
             throw new RuntimeException(messageService.returnMessage("err.operation"));
         }
 
+        if (type.isBlank()) {
+            throw new RuntimeException(messageService.returnMessage("err.type"));
+        }
+
         Operation operation = new Operation(user.getFirstName() + ' ' + user.getLastName(),user.getFirstName() + ' ' + user.getLastName(), type, amount);
 
         if (type.equals("depot")) {
@@ -107,7 +114,7 @@ public class OperationService {
     }
 
     public List<Operation> getOperations() throws RuntimeException {
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if (oUser.isEmpty()) {
             throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
