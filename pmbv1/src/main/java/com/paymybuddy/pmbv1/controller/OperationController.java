@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class OperationController {
@@ -41,10 +42,10 @@ public class OperationController {
     }
 
     @RequestMapping("/operation/transfer")
-    public String transferMoney(Model model, String email, String description, int amount, RedirectAttributes redirectAttributes) throws RuntimeException {
+    public String transferMoney(Model model, String email, String description, Optional<Integer> amount, RedirectAttributes redirectAttributes) throws RuntimeException {
 
         try {
-            String status = operationService.send(email, description, amount);
+            String status = operationService.send(email, description, amount.get());
             redirectAttributes.addFlashAttribute("ope_status", status);
         }
         catch (RuntimeException exception) {
