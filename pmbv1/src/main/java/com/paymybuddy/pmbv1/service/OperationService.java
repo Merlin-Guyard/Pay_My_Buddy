@@ -31,7 +31,7 @@ public class OperationService {
 
     public String send(String email, String description, int amount) throws RuntimeException {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if (oUser.isEmpty()) {
             throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
@@ -61,10 +61,6 @@ public class OperationService {
 
         if (user.getBalance() - amount - commission < 0.00) {
             throw new RuntimeException(messageService.returnMessage("err.insufficient_funds"));
-        }
-
-        if (user.getBalance() - amount < 1.00) {
-            throw new RuntimeException(messageService.returnMessage("err.minimum"));
         }
 
         Operation operation = new Operation(user.getFirstName() + ' ' + user.getLastName(),contact.getFirstName() + ' ' + contact.getLastName(), description, amount);
