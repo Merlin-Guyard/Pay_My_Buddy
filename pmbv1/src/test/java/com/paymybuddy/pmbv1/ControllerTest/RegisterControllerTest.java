@@ -6,9 +6,8 @@ import com.paymybuddy.pmbv1.repository.UserRepository;
 import com.paymybuddy.pmbv1.service.CustomUserDetailService;
 import com.paymybuddy.pmbv1.service.UserService;
 import org.apache.catalina.security.SecurityConfig;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,7 +26,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.RequestEntity.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
+@SpringBootTest
 @WebMvcTest(RegisterController.class)
 @AutoConfigureMockMvc
 public class RegisterControllerTest {

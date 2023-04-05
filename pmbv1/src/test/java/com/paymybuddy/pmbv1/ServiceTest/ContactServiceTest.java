@@ -37,6 +37,8 @@ public class ContactServiceTest {
 
     @Test
     public void testAddContact() throws RuntimeException {
+
+        // Prepare
         User currentUser = new User();
         currentUser.setEmail("user@example.com");
         currentUser.setUserId(0);

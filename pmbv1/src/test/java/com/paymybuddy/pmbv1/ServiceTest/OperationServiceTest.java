@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -86,7 +85,6 @@ public class OperationServiceTest {
         String errorMessage = "This user doesn't exist.";
         Mockito.when(messageService.returnMessage("err.unknown_user")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", 750);
         });
@@ -105,14 +103,12 @@ public class OperationServiceTest {
         user.setBalance(1000);
         contact.setBalance(0);
 
-
         when(schService.getName()).thenReturn(user.getEmail());
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
         when(userRepository.findByEmail(contact.getEmail())).thenReturn(Optional.empty());
         String errorMessage = "This contact doesn't exist.";
         Mockito.when(messageService.returnMessage("err.unknown_contact")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", 750);
         });
@@ -138,7 +134,6 @@ public class OperationServiceTest {
         String errorMessage = "You cannot send money to yourself.";
         Mockito.when(messageService.returnMessage("err.send_to_self")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", 750);
         });
@@ -163,7 +158,6 @@ public class OperationServiceTest {
         String errorMessage = "This contact isn't in your friend list.";
         Mockito.when(messageService.returnMessage("err.not_friend_contact")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", 750);
         });
@@ -189,7 +183,6 @@ public class OperationServiceTest {
         String errorMessage = "Amount is not admissible.";
         Mockito.when(messageService.returnMessage("err.operation")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", -5);
         });
@@ -215,7 +208,6 @@ public class OperationServiceTest {
         String errorMessage = "You don't have enough money for this transfer.";
         Mockito.when(messageService.returnMessage("err.insufficient_funds")).thenReturn(errorMessage);
 
-        // Act and Assert
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             operationService.send(contact.getEmail(), "Test operation", 1500);
         });
