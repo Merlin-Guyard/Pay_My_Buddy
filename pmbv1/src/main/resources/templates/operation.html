@@ -135,6 +135,10 @@
                             Pay
                         </button>
                     </div>
+
+                    <div class="alert alert-primary" role="alert" th:text="${ope_status}" th:if="${ope_status}"></div>
+                    <div class="alert alert-warning" role="alert" th:text="${ope_error}" th:if="${ope_error}"></div>
+                    <div class="alert alert-warning" role="alert" th:text="${amo_error}" th:if="${amo_error}"></div>
                 </div>
             </div>
         </form>
@@ -167,20 +171,12 @@
                         <tr th:each="operation : ${operations}">
                             <td th:text="${operation.receiver}"></td>
                             <td th:text="${operation.description}"></td>
-                            <td th:text="${operation.amount}"></td>
+                            <td th:text="${operation.amount} + '€'"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <ul class="pagination pull-right">
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">></a></li>
-                </ul>
+                <div class="alert alert-warning" role="alert" th:text="${fetch_error}" th:if="${fetch_error}"></div>
             </div>
         </div>
     </div>

@@ -51,14 +51,12 @@
                 <div class="form-group">
                     <a>Enter email address</a>
                     <input class="form-control" id="email" placeholder="Email" th:field="*{email}" type="text">
-                    <div class="alert alert-warning" th:errors="*{email}">
-                         th:if="${#fields.hasErrors('email')}"
-                    </div>
                 </div>
+
+                <div class="alert alert-primary" role="alert" th:text="${add_status}" th:if="${add_status}"></div>
+                <div class="alert alert-warning" role="alert" th:text="${add_error}" th:if="${add_error}"></div>
+
                 <div class="d-flex justify-content-center">
-                    <div th:if="${#fields.hasErrors('global')}">
-                        <p class="alert alert-danger" th:each="err : ${#fields.errors('global')}" th:text="${err}"/>
-                    </div>
                     <button class="btn btn-primary"
                             id="BAdd"
                             type="submit">
@@ -99,15 +97,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <ul class="pagination pull-right">
-                        <li><a href="#"><</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">></a></li>
-                    </ul>
+                    <div class="alert alert-primary" role="alert" th:text="${del_status}" th:if="${del_status}"></div>
+                    <div class="alert alert-warning" role="alert" th:text="${del_error}" th:if="${del_error}"></div>
                 </div>
             </div>
         </div>

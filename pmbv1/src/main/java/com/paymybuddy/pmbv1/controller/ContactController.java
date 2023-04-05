@@ -1,24 +1,16 @@
-
-
 package com.paymybuddy.pmbv1.controller;
 
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.service.ContactService;
 import com.paymybuddy.pmbv1.service.UserService;
-import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ContactController {
@@ -32,7 +24,6 @@ public class ContactController {
     @GetMapping("/contact")
     public String getContact(User user, Model model) {
         User user2 = userService.getUserByEmail();
-        //TODO : get contact
         List<User> contacts = new ArrayList<>(user2.getFriendList());
 
         model.addAttribute("users", contacts);
@@ -40,28 +31,30 @@ public class ContactController {
     }
 
     @GetMapping("/contact/del")
-    public String removeUser(@RequestParam String userEmail, Errors errors) throws Throwable {
+    public String removeUser(@RequestParam String userEmail, RedirectAttributes redirectAttributes) throws RuntimeException {
 
-        System.out.println(contactService.removeContact(userEmail));
+        try {
+            String status = contactService.removeContact(userEmail);
+            redirectAttributes.addFlashAttribute("del_status", status);
+        }
+        catch (RuntimeException exception) {
+            String error = exception.getMessage();
+            redirectAttributes.addFlashAttribute("del_error", error);
+        }
         return "redirect:/contact";
     }
 
     @PostMapping("/contact/add")
-    public String getUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) throws Throwable {
+    public String getUser(User user, RedirectAttributes redirectAttributes) throws RuntimeException {
 
-        if(bindingResult.hasErrors()){
-            return "contact";
-        }
-
-        try {
-            contactService.addContact(user.getEmail());
+            try {
+                String status = contactService.addContact(user.getEmail());
+                redirectAttributes.addFlashAttribute("add_status", status);
+            }
+            catch (RuntimeException exception) {
+                String error = exception.getMessage();
+                redirectAttributes.addFlashAttribute("add_error", error);
+            }
             return "redirect:/contact";
-        } catch (Throwable throwable) {
-            String err = throwable.getMessage();
-            ObjectError error = new ObjectError("globalError", err);
-            bindingResult.addError(error);
-            return "contact";
         }
-    }
-    
 }

@@ -20,14 +20,13 @@ public class UserService {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    SCHService schService;
+
     public User getUserByEmail() {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
 
-        //TODO
-        if(oUser.isEmpty()) {
-            return oUser.get();
-        }
         return oUser.get();
     }
 
@@ -37,14 +36,13 @@ public class UserService {
         return contacts;
     }
 
-    public String addUser(User user) throws Throwable {
+    public String addUser(User user) throws RuntimeException {
         List<User> users = userRepository.findAll();
 
-        //TODO: errors/status feedback
         for (User user2check : users)
         {
             if(user2check.getEmail().equals(user.getEmail())){
-                throw new Throwable(messageService.returnMessage("err.duplicate_user"));
+                throw new RuntimeException(messageService.returnMessage("err.duplicate_user"));
             }
         }
 

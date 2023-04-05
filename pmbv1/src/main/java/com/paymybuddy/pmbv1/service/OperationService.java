@@ -26,49 +26,48 @@ public class OperationService {
     @Autowired
     private MessageService messageService;
 
-    public String send(String email, String description, int amount) {
+    @Autowired
+    SCHService schService;
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    public String send(String email, String description, int amount) throws RuntimeException {
+
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if (oUser.isEmpty()) {
-            return messageService.returnMessage("err.unknown_user");
+            throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
 
         Optional<User> oContact = userRepository.findByEmail(email);
         if (oContact.isEmpty()) {
-            return messageService.returnMessage("err.unknown_contact");
+            throw new RuntimeException(messageService.returnMessage("err.unknown_contact"));
         }
         User contact = oContact.get();
 
         if (user.getUserId() == contact.getUserId()) {
-            return messageService.returnMessage("err.send_to_self");
+            throw new RuntimeException(messageService.returnMessage("err.send_to_self"));
         }
 
         boolean isAlreadyFriend = user.getFriendList().stream().anyMatch(friend -> friend.getEmail().equals(contact.getEmail()));
         if (!isAlreadyFriend) {
-            return messageService.returnMessage("err.not_friend_contact");
+            throw new RuntimeException(messageService.returnMessage("err.not_friend_contact"));
         }
 
         if (amount < 0.00) {
-            return messageService.returnMessage("err.operation");
+            throw new RuntimeException(messageService.returnMessage("err.operation"));
         }
 
         BigDecimal bd = new BigDecimal(amount * 0.005).setScale(2, RoundingMode.HALF_DOWN);
         double commission = bd.doubleValue();
 
         if (user.getBalance() - amount - commission < 0.00) {
-            return messageService.returnMessage("err.insufficient_funds");
-        }
-
-        if (user.getBalance() - amount < 1.00) {
-            return messageService.returnMessage("err.minimum");
+            throw new RuntimeException(messageService.returnMessage("err.insufficient_funds"));
         }
 
         Operation operation = new Operation(user.getFirstName() + ' ' + user.getLastName(),contact.getFirstName() + ' ' + contact.getLastName(), description, amount);
 
         user.setBalance(user.getBalance() - amount - commission);
         contact.setBalance(contact.getBalance() + amount);
-        System.out.println("The commission for this transaction was :" + commission);
+
         operationRepository.save(operation);
         userRepository.save(user);
         userRepository.save(contact);
@@ -76,20 +75,24 @@ public class OperationService {
         return messageService.returnMessage("stat.transfer");
     }
 
-    public String manage(String type, int amount) throws Throwable {
+    public String manage(String type, int amount) throws RuntimeException {
 
         Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if (oUser.isEmpty()) {
-            throw new Throwable(messageService.returnMessage("err.unknown_user"));
+            throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
 
         if (amount > user.getBalance()) {
-            throw new Throwable(messageService.returnMessage("err.insufficient_funds"));
+            throw new RuntimeException(messageService.returnMessage("err.insufficient_funds"));
         }
 
         if (amount < 0.00) {
-            throw new Throwable(messageService.returnMessage("err.operation"));
+            throw new RuntimeException(messageService.returnMessage("err.operation"));
+        }
+
+        if (type.isBlank()) {
+            throw new RuntimeException(messageService.returnMessage("err.type"));
         }
 
         Operation operation = new Operation(user.getFirstName() + ' ' + user.getLastName(),user.getFirstName() + ' ' + user.getLastName(), type, amount);
@@ -103,20 +106,17 @@ public class OperationService {
 
         operationRepository.save(operation);
         userRepository.save(user);
-        return messageService.returnMessage("stat.transfer");
+        return messageService.returnMessage("stat.manage");
     }
 
-    public List<Operation> getOperations() throws Throwable {
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    public List<Operation> getOperations() throws RuntimeException {
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if (oUser.isEmpty()) {
-            throw new Throwable(messageService.returnMessage("err.unknown_user"));
+            throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
         
         Iterable<Operation> iOperations = operationRepository.findAll();
-//        if (oOperations.()) {
-//            throw new Throwable(messageService.returnMessage("err.unknown_user"));
-//        }
 
         List<Operation> operations = new ArrayList<>();
         iOperations.forEach(operations::add);

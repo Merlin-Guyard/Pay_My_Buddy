@@ -3,24 +3,24 @@ package com.paymybuddy.pmbv1.ServiceTest;
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
 import com.paymybuddy.pmbv1.service.MessageService;
+import com.paymybuddy.pmbv1.service.SCHService;
 import com.paymybuddy.pmbv1.service.UserService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -29,11 +29,14 @@ public class UserServiceTest {
     @Mock
     private MessageService messageService;
 
+    @Mock
+    private SCHService schService;
+
     @InjectMocks
     private UserService userService;
 
     @Test
-    public void testAddUserDuplicate() throws Throwable {
+    public void testAddUserDuplicate() throws RuntimeException {
         // create a new user
         User user = new User();
         user.setEmail("test@example.com");
@@ -50,15 +53,13 @@ public class UserServiceTest {
         Mockito.when(messageService.returnMessage("err.duplicate_user")).thenReturn(errorMessage);
 
         // add user expecting to fail and check if message is correct
-        try {
-            userService.addUser(user);
-        } catch (Throwable e) {
-            assertEquals(errorMessage, e.getMessage());
-        }
+
+         RuntimeException result = assertThrows(RuntimeException.class, () -> userService.addUser(user));
+         assertEquals(errorMessage, result.getMessage());
     }
 
     @Test
-    public void testAddUser() throws Throwable {
+    public void testAddUser() throws RuntimeException {
         // create a new user
         User user = new User();
         user.setEmail("test@example.com");
@@ -80,11 +81,14 @@ public class UserServiceTest {
     @Test
     void getUserByEmailTest() {
         // mock the security context holder
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Authentication authentication = Mockito.mock(Authentication.class);
-        when(authentication.getName()).thenReturn("test@example.com");
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-        SecurityContextHolder.setContext(securityContext);
+        when(schService.getName()).thenReturn("test@example.com");
+
+        // previous mock of the security context holder
+//        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+//        Authentication authentication = Mockito.mock(Authentication.class);
+//        when(authentication.getName()).thenReturn("test@example.com");
+//        when(securityContext.getAuthentication()).thenReturn(authentication);
+//        SecurityContextHolder.setContext(securityContext);
 
         // mock an existing user
         User testUser = new User("test@example.com", "password", "test@example.com", "User");
