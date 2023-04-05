@@ -1,6 +1,5 @@
 package com.paymybuddy.pmbv1.ControllerTest;
 
-import com.paymybuddy.pmbv1.controller.HomeController;
 import com.paymybuddy.pmbv1.service.CustomUserDetailService;
 import com.paymybuddy.pmbv1.service.UserService;
 import org.apache.catalina.security.SecurityConfig;

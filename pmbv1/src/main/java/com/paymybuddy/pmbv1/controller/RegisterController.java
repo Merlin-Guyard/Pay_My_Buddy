@@ -35,7 +35,7 @@ public class RegisterController {
         try {
             BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
             User user2Add = new User(user.getFirstName(), user.getLastName(), user.getEmail(), bCryptPasswordEncoder.encode(user.getPassword()));
-            userService.addUser(user);
+            userService.addUser(user2Add);
             return "login";
         } catch (Throwable throwable) {
             String err = throwable.getMessage();
