@@ -45,7 +45,7 @@ public class ContactController {
     }
 
     @PostMapping("/contact/add")
-    public String getUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) throws RuntimeException {
+    public String getUser(User user, RedirectAttributes redirectAttributes) throws RuntimeException {
 
             try {
                 String status = contactService.addContact(user.getEmail());
