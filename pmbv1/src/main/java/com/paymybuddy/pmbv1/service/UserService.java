@@ -27,7 +27,13 @@ public class UserService {
 
         Optional<User> oUser = userRepository.findByEmail(schService.getName());
 
-        return oUser.get();
+        if (oUser.isPresent()) {
+            User user = oUser.get();
+//            user.getFriendList().size(); // Access the friend list to initialize it
+            return user;
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 
     public Iterable<User> getContacts(){

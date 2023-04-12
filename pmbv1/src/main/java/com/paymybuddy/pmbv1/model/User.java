@@ -1,5 +1,7 @@
 package com.paymybuddy.pmbv1.model;
 
+import org.hibernate.engine.internal.Cascade;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -54,7 +56,7 @@ public class User {
     private int enabled;
 
     @ManyToMany(
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     @JoinTable(name = "contact",
             joinColumns = @JoinColumn(name = "user_id"),

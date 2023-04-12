@@ -22,6 +22,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -37,10 +39,16 @@ public class RegisterControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
     private UserRepository userRepository;
 
-    @MockBean
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    @Autowired
     private CustomUserDetailService customUserDetailService;
 
     @Test
@@ -52,8 +60,11 @@ public class RegisterControllerTest {
                         .param("lastName", "Dupont")
                         .param("email", "email@test.com")
                         .param("password", "pazzword"))
-                .andExpect((ResultMatcher) assertThat(userRepository.findByEmail("email@test.com").get().getFirstName().equals("Bobby")))
                 .andExpect(status().isOk());
+
+        Optional<User> user = userRepository.findByEmail("email@test.com");
+        assertThat(user).isPresent();
+        assertThat(user.get().getFirstName()).isEqualTo("Bobby");
     }
 
 }

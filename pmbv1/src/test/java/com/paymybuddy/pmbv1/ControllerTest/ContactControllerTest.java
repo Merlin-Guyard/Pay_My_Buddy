@@ -64,12 +64,12 @@ public class ContactControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "merlin.guyard@test.com", password = "mdp123")
+    @WithMockUser(username = "merlin.guyard2@test.com", password = "mdp123")
     public void testAddContacts() throws Exception {
 
-        User contact = new User("Tom", "Guyard", "tom.guyard@test.com", passwordEncoder.encode("mdp123"));
+        User contact = new User("Tom2", "Guyard2", "tom.guyard2@test.com", passwordEncoder.encode("mdp123"));
         userRepository.save(contact);
-        User user = new User("Merlin", "Guyard", "merlin.guyard@test.com", passwordEncoder.encode("mdp123"));
+        User user = new User("Merlin2", "Guyard2", "merlin.guyard2@test.com", passwordEncoder.encode("mdp123"));
         userRepository.save(user);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/add")
@@ -78,10 +78,9 @@ public class ContactControllerTest {
                 .andExpect(MockMvcResultMatchers.flash().attribute("add_status", "Contact added successfully."))
                 .andExpect(redirectedUrl("/contact"));
 
-//        TODO : can't get friendlist
-//        Optional<User> oUser2Check = userRepository.findByEmail(user.getEmail());
-//        User user2Check = oUser2Check.get();
-//        assertEquals(user2Check.getFriendList().get(0).getEmail(), contact.getEmail());
+        Optional<User> oUser2Check = userRepository.findByEmail(user.getEmail());
+        User user2Check = oUser2Check.get();
+        assertEquals(user2Check.getFriendList().get(0).getEmail(), contact.getEmail());
     }
 
 //    @Test
