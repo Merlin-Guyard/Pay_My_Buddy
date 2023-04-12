@@ -17,27 +17,25 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.RequestEntity.post;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(RegisterController.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 public class RegisterControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @MockBean
-    private UserService userService;
-
-    @MockBean
-    private WebApplicationContext webApplicationContext;
 
     @MockBean
     private UserRepository userRepository;
@@ -47,15 +45,15 @@ public class RegisterControllerTest {
 
     @Test
     public void testRegisterUser() throws Exception {
-        User user = new User("Bobby", "Dupont", "email@test.com", "pazzword");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/register")
-                        .sessionAttr("user", user))
+                        .with(csrf())
+                        .param("firstName", "Bobby")
+                        .param("lastName", "Dupont")
+                        .param("email", "email@test.com")
+                        .param("password", "pazzword"))
+                .andExpect((ResultMatcher) assertThat(userRepository.findByEmail("email@test.com").get().getFirstName().equals("Bobby")))
                 .andExpect(status().isOk());
-
-        // Verify that the user was created
-        User expectedUser = new User("Bobby", "Dupont", "email@test.com", "pazzword");
-        verify(userRepository).save(expectedUser);
     }
 
 }

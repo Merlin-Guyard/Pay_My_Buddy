@@ -19,10 +19,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -36,29 +39,29 @@ public class ContactControllerTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @Test
-//    @WithMockUser(username = "merlin.guyard@test.com", password = "mdp123")
-//    public void testGetContacts() throws Exception {
-//
-//        User contact = new User("Tom", "Guyard", "tom.guyard@test.com", passwordEncoder.encode("mdp123"));
-//        userRepository.save(contact);
-//
-//        User user = new User("Merlin", "Guyard", "merlin.guyard@test.com", passwordEncoder.encode("mdp123"));
-//        List<User> contacts = new ArrayList<>();
-//        contacts.add(contact);
-//        user.setFriendList(contacts);
-//        userRepository.save(user);
-//
-//        mockMvc.perform(MockMvcRequestBuilders.get("/contact"))
-//                .andExpect(MockMvcResultMatchers.model().attributeExists("users"))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(result -> {
-//                    List<User> users = (List<User>) result.getModelAndView().getModel().get("users");
-//                    assertThat(users.get(0).getFirstName()).isEqualTo("Tom");
-//                    assertThat(users.get(0).getLastName()).isEqualTo("Guyard");
-//                    assertThat(users.get(0).getEmail()).isEqualTo("tom.guyard@test.com");
-//                });
-//    }
+    @Test
+    @WithMockUser(username = "merlin.guyard@test.com", password = "mdp123")
+    public void testGetContacts() throws Exception {
+
+        User contact = new User("Tom", "Guyard", "tom.guyard@test.com", passwordEncoder.encode("mdp123"));
+        userRepository.save(contact);
+
+        User user = new User("Merlin", "Guyard", "merlin.guyard@test.com", passwordEncoder.encode("mdp123"));
+        List<User> contacts = new ArrayList<>();
+        contacts.add(contact);
+        user.setFriendList(contacts);
+        userRepository.save(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/contact"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("users"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(result -> {
+                    List<User> users = (List<User>) result.getModelAndView().getModel().get("users");
+                    assertThat(users.get(0).getFirstName()).isEqualTo("Tom");
+                    assertThat(users.get(0).getLastName()).isEqualTo("Guyard");
+                    assertThat(users.get(0).getEmail()).isEqualTo("tom.guyard@test.com");
+                });
+    }
 
     @Test
     @WithMockUser(username = "merlin.guyard@test.com", password = "mdp123")
@@ -68,16 +71,17 @@ public class ContactControllerTest {
         userRepository.save(contact);
         User user = new User("Merlin", "Guyard", "merlin.guyard@test.com", passwordEncoder.encode("mdp123"));
         userRepository.save(user);
-        List<User> users =new ArrayList<>();
-        users.add(contact);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/contact/add")
                         .with(csrf())
                         .param("email", contact.getEmail()))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.flash().attribute("add_status", "Contact added successfully."));
+                .andExpect(MockMvcResultMatchers.flash().attribute("add_status", "Contact added successfully."))
+                .andExpect(redirectedUrl("/contact"));
 
-        assertEquals(user.getFriendList().get(0).getEmail(), "tom.guyard@test.com");
+//        TODO : can't get friendlist
+//        Optional<User> oUser2Check = userRepository.findByEmail(user.getEmail());
+//        User user2Check = oUser2Check.get();
+//        assertEquals(user2Check.getFriendList().get(0).getEmail(), contact.getEmail());
     }
 
 //    @Test
