@@ -1,7 +1,6 @@
-package com.paymybuddy.pmbv1.ControllerTest;
+package com.paymybuddy.pmbv1.TI;
 
-
-import com.paymybuddy.pmbv1.controller.HomeController;
+import com.paymybuddy.pmbv1.controller.LoginController;
 import com.paymybuddy.pmbv1.service.CustomUserDetailService;
 import com.paymybuddy.pmbv1.service.UserService;
 import org.apache.catalina.security.SecurityConfig;
@@ -14,11 +13,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @Import(SecurityConfig.class)
-@WebMvcTest(HomeController.class)
-public class HomeControllerTest {
+@WebMvcTest(LoginController.class)
+public class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,11 +27,10 @@ public class HomeControllerTest {
     private CustomUserDetailService customUserDetailService;
 
     @Test
-    void testReturnHome() throws Exception {
+    void testReturnLogin() throws Exception {
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/home"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/login"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("home"));
+                .andExpect(MockMvcResultMatchers.view().name("login"));
     }
-
 }

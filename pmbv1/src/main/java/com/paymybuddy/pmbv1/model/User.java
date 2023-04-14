@@ -80,21 +80,6 @@ public class User {
         this.password = password;
     }
 
-    public User(int userId, String firstName, String lastName, String email, String password, int balance, int card_code, int card_date_limit, int card_secret_number, int card_user_firstname, int card_user_lastname, int enabled) {
-        this.userId = userId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.balance = balance;
-        this.card_code = card_code;
-        this.card_date_limit = card_date_limit;
-        this.card_secret_number = card_secret_number;
-        this.card_user_firstname = card_user_firstname;
-        this.card_user_lastname = card_user_lastname;
-        this.enabled = enabled;
-    }
-
     public int getUserId() {
         return userId;
     }

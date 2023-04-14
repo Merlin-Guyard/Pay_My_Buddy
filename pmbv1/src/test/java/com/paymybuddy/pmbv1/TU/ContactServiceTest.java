@@ -1,11 +1,10 @@
-package com.paymybuddy.pmbv1.ServiceTest;
+package com.paymybuddy.pmbv1.TU;
 
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
 import com.paymybuddy.pmbv1.service.ContactService;
 import com.paymybuddy.pmbv1.service.MessageService;
 import com.paymybuddy.pmbv1.service.SCHService;
-import com.paymybuddy.pmbv1.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

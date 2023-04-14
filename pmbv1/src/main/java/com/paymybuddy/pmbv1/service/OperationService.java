@@ -77,21 +77,21 @@ public class OperationService {
 
     public String manage(String type, int amount) throws RuntimeException {
 
-        Optional<User> oUser = userRepository.findByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Optional<User> oUser = userRepository.findByEmail(schService.getName());
         if (oUser.isEmpty()) {
             throw new RuntimeException(messageService.returnMessage("err.unknown_user"));
         }
         User user = oUser.get();
 
-        if (amount > user.getBalance()) {
+        if (amount > user.getBalance() && type.equals("retrait")) {
             throw new RuntimeException(messageService.returnMessage("err.insufficient_funds"));
         }
 
-        if (amount < 0.00) {
+        if (amount <= 0.00) {
             throw new RuntimeException(messageService.returnMessage("err.operation"));
         }
 
-        if (type.isBlank()) {
+        if (type.isBlank() ) {
             throw new RuntimeException(messageService.returnMessage("err.type"));
         }
 

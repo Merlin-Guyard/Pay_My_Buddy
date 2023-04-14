@@ -44,6 +44,10 @@ public class OperationController {
     @RequestMapping("/operation/transfer")
     public String transferMoney(Model model, String email, String description, Optional<Integer> amount, RedirectAttributes redirectAttributes) throws RuntimeException {
 
+        if (amount.isEmpty()){
+            throw new RuntimeException();
+        }
+
         try {
             String status = operationService.send(email, description, amount.get());
             redirectAttributes.addFlashAttribute("ope_status", status);
