@@ -1,10 +1,8 @@
 package com.paymybuddy.pmbv1.service;
 
-
 import com.paymybuddy.pmbv1.model.User;
 import com.paymybuddy.pmbv1.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

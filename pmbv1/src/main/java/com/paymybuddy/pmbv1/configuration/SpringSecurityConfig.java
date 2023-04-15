@@ -1,6 +1,5 @@
 package com.paymybuddy.pmbv1.configuration;
 
-
 import com.paymybuddy.pmbv1.service.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
