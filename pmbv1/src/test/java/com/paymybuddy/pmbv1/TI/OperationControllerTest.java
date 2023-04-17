@@ -1,4 +1,4 @@
-package com.paymybuddy.pmbv1.ControllerTest;
+package com.paymybuddy.pmbv1.TI;
 
 import com.paymybuddy.pmbv1.controller.OperationController;
 import com.paymybuddy.pmbv1.controller.RegisterController;
