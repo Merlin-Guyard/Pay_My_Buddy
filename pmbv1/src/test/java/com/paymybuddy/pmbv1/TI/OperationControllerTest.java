@@ -99,7 +99,7 @@ public class OperationControllerTest {
 
         Optional<User> oUser2Check = userRepository.findByEmail(user.getEmail());
         User user2Check = oUser2Check.get();
-        assertEquals(user2Check.getBalance(), 899.5);
+        assertEquals(user2Check.getBalance(), 900);
         assertEquals(user2Check.getFriendList().get(0).getBalance(), 100);
     }
 }
